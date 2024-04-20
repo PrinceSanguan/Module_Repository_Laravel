@@ -1,1 +1,5 @@
-This Website is Under Construction by Ms. Aina Ainz
+@include('header')
+
+
+@include('footer')
+
