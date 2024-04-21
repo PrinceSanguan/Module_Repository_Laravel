@@ -60,7 +60,7 @@
             <h3 id="time-counter" class="border border-light my-4 p-4"></h3>
 
             <p>We're working hard to finish the development of this site and launch it on April 28, 2024, at 12:00 PM.</p>
-            <p>The website is currently under construction by Ms. Aina Ainz.</p>
+            <p>The website is currently under construction by Ms. Ina V. Nucup.</p>
             
           </div>
         </div>
