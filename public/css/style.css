@@ -435,6 +435,12 @@ result-box h2 {
 /* Media Queries for Responsive Design */
 
 @media screen and (max-width: 768px) {
+    html,
+    body {
+        overflow: hidden;
+    }
+
+    /* Your existing styles for mobile view */
     .header {
         padding: 20px 5%;
     }
