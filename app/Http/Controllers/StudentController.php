@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class StudentController extends Controller
 {
-
     private function getUserInfo()
     {
         // Get the currently authenticated user
@@ -25,7 +24,7 @@ class AdminController extends Controller
 
     public function index() 
     {
-        $user = $this->getUserInfo();
+         $user = $this->getUserInfo();
 
         // Check if the user is found
         if (!$user) {
@@ -33,31 +32,12 @@ class AdminController extends Controller
         }
 
         // Check if the user type is 'admin'
-        if ($user->userType !== 'admin') {
+        if ($user->userType !== 'student') {
             // Redirect to the same page with an error message
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
-        }
+        } 
 
         // Pass the information to the view
-        return view('admin.dashboard', ['user' => $user]);
-    }
-
-    public function student() 
-    {
-        $user = $this->getUserInfo();
-
-        // Check if the user is found
-        if (!$user) {
-            return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
-        }
-
-        // Check if the user type is 'admin'
-        if ($user->userType !== 'admin') {
-            // Redirect to the same page with an error message
-            return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
-        }
-
-        // Pass the information to the view
-        return view('admin.student', ['user' => $user]);
+        return view('student.dashboard', ['user' => $user] );
     }
 }
