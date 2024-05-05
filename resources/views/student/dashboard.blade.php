@@ -68,7 +68,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex"> 
         <div class="info">
-          <a style="cursor: default;">Hi, Student <strong>Prince E. Sanguan{{-- {{ ucfirst($user->name) }} --}}!</strong></a>
+          <a style="cursor: default;">Hi, Student <strong>{{ ucfirst($user->name) }}!</strong></a>
         </div>
       </div>
 

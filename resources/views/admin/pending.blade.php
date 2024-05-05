@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">List of Student</h1>
+            <h1 class="m-0">List of Pending</h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -23,35 +23,42 @@
     <div class="card">
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
-        <table class="table table-hover text-nowrap">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Name</th>
-              <th>Section</th>
-              <th>Date Created</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            @if ($data)
+        @if ($data->isEmpty())
+        <div class="callout callout-info">
+          <h5><i class="fas fa-info"></i> Note:</h5>
+          No Pending Account!
+        </div>
+        @else
+          <table class="table table-hover text-nowrap">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>User Type</th>
+                <th>Section</th>
+                <th>Date Created</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
               @foreach ($data as $datas)
                 <tr>
                   <td>{{ $datas->id }}</td>
                   <td>{{ $datas->username }}</td>
                   <td>{{ $datas->name }}</td>
+                  <td>{{ $datas->userType }}</td>
                   <td>{{ $datas->section }}</td>
                   <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
                   <td>
-                    <button class="btn btn-sm btn-info">View</button>
+                    <button class="btn btn-sm btn-success">Activate</button>
                     <button class="btn btn-sm btn-danger">Delete</button>
                   </td>
                 </tr>
               @endforeach  
-            @endif
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        @endif
       </div>
       <!-- /.card-body -->
     </div>
@@ -59,6 +66,7 @@
   </div>
 </div>
 <!--/.Main Content Here--->
+
 
   </div>
   <!-- /.content-wrapper -->

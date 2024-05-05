@@ -54,6 +54,15 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{route('admin.pending')}}" class="nav-link {{ Route::is('admin.pending') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-question"></i>
+              <p>
+                Pending
+              </p>
+            </a>
+          </li>
   
           <li class="nav-item">
             <a href="{{ route('admin.student') }}" class="nav-link {{ Route::is('admin.student') ? 'active' : '' }}">

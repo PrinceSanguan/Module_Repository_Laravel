@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('name');
             $table->string('password');
-            $table->enum('userType', ['admin', 'student', 'teacher'])->nullable();
+            $table->string('section');
+            $table->enum('userType', ['admin', 'student', 'teacher'])->default('admin');
+            $table->enum('status', ['activate', 'deactivate'])->default('deactivate');
             $table->timestamps();
         });
     }

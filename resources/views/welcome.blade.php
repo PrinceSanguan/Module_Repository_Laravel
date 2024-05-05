@@ -40,14 +40,19 @@
                           <div class="mb-4">
                               <h2 class="display-3 text-center">IVN MODULE<span style="color: #AD50A7;"></span></h2>
                               <p class="mb-4">
-                                  To access this website, you must contact <strong class="text-dark">Ms. Ina V. Nucup</strong> to get approved.
-                              </p>
+                                To access this website, you must contact <strong class="text-dark">Ms. Ina V. Nucup</strong>. If you do not have an account, please <a href="{{ route('signup') }}">click here</a>.
+                            </p>
                           </div>
 
                           @if(session('error'))
-                          <div class="alert alert-danger" style="font-size: 18px; padding: 20px;">
+                          <div id="error-alert" class="alert alert-danger" style="font-size: 18px; padding: 20px;">
                               {{ session('error') }}
                           </div>
+                          <script>
+                            setTimeout(function() {
+                                document.getElementById('error-alert').style.display = 'none';
+                            }, 3000);
+                        </script>
                           @endif
 
                           @if(session('success'))

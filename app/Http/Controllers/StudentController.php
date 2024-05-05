@@ -12,15 +12,22 @@ class StudentController extends Controller
     {
         // Get the currently authenticated user
         $authenticatedUser = Auth::user();
-
+    
         // Check if the authenticated user exists
         if (!$authenticatedUser) {
             return null;
         }
-
+    
+        // Check if the user's type is "activate"
+        if ($authenticatedUser->status !== 'activate') {
+            // If the user's type is not "activate", return null or handle the unauthorized access as needed
+            return null;
+        }
+    
         // Fetch user information based on the authenticated user's username
         return User::where('username', $authenticatedUser->username)->first();
     }
+    
 
     public function index() 
     {
@@ -31,7 +38,7 @@ class StudentController extends Controller
             return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
         }
 
-        // Check if the user type is 'admin'
+        // Check if the user type is 'student'
         if ($user->userType !== 'student') {
             // Redirect to the same page with an error message
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);

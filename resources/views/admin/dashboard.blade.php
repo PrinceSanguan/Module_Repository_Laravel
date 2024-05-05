@@ -24,7 +24,7 @@
       <div class="col-lg-6 col-6">
         <div class="small-box bg-green">
           <div class="inner">
-            <h3>15</h3>
+            <h3>{{$totalNumberOfStudent}}</h3>
 
             <p>Number of students</p>
           </div>
@@ -41,7 +41,7 @@
       <div class="col-lg-6 col-6">
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>5</h3>
+            <h3>{{$totalNumberOfTeacher}}</h3>
 
             <p>Number of teachers</p>
           </div>
@@ -88,6 +88,23 @@
           </div>
         </div>
 
+        <!-- Pending Account -->
+        <div class="col-lg-12 col-12">
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3>{{$totalNumberOfPendingAccounts}}</h3>
+
+              <p>Pending Accounts</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-question"></i>
+            </div>
+            <a href="{{route('admin.pending')}}" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+
     </div>
   <!--/.Main Content Here--->
   </div>
@@ -102,6 +119,7 @@
       <b>Version</b> 1.1.0
     </div>
   </footer>
+
 </div>
 <!-- ./wrapper -->
 
