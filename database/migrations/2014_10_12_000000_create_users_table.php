@@ -4,7 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -24,12 +23,11 @@ return new class extends Migration
             $table->timestamps();
         });
 
-
         // Insert default data
         DB::table('users')->insert([
             'username' => 'admin',
             'name' => 'Ina V. Nucup',
-            'password' => Hash::make('admin'),
+            'password' => '$2y$12$8qGbpTMe/NFXUMNZbMB5Gu0SFlp/hOcbGb6yyhSdn6MxedBmK7Eta',
             'section' => 'Gumamela',
             'userType' => 'admin',
             'status' => 'active',
