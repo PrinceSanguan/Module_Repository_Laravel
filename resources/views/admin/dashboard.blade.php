@@ -58,7 +58,7 @@
         <div class="col-lg-6 col-6">
           <div class="small-box bg-pink">
             <div class="inner">
-              <h3>12</h3>
+              <h3>{{$totalNumberOfQuiz}}</h3>
 
               <p>Number of quizzes</p>
             </div>

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +34,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/student', [AdminController::class, 'student'])->name('admin.student');
     Route::get('admin/pending', [AdminController::class, 'pending'])->name('admin.pending');
+
+    Route::get('admin/quiz', [AdminController::class, 'quiz'])->name('admin.quiz');
+    Route::get('admin/quiz/{quizTitleId}', [AdminController::class, 'viewQuestions'])->name('admin.viewQuestion');
+    Route::post('admin/quiz', [AdminController::class, 'addQuiz'])->name('admin.addQuiz');
+    Route::post('admin/quiz/add-question', [AdminController::class, 'addQuestion'])->name('admin.addQuestion');
+    Route::get('admin/delete-quiz/{quizTitleId}', [AdminController::class, 'deleteQuiz']);
     /******************************************** This Route is For Admin *****************************/
 
     /******************************************** This Route is For Student *****************************/

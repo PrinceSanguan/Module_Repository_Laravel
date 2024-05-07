@@ -30,7 +30,7 @@ return new class extends Migration
             'password' => '$2y$12$8qGbpTMe/NFXUMNZbMB5Gu0SFlp/hOcbGb6yyhSdn6MxedBmK7Eta',
             'section' => 'Gumamela',
             'userType' => 'admin',
-            'status' => 'active',
+            'status' => 'activate',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
