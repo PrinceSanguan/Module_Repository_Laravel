@@ -162,6 +162,27 @@ class AdminController extends Controller
     }
     //////////////////////////// Deleting Quiz ///////////////////////////////////////
 
+    public function module()
+    {
+        // Your existing logic to retrieve user data and quizzes
+        $user = $this->getUserInfo();
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
+        }
+    
+        // Check if the user type is 'admin'
+        if ($user->userType !== 'admin') {
+            // Redirect to the same page with an error message
+            return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
+        }
+    
+        // Retrieve quizzes published by Admin
+        $modules = QuizTitle::all();
+    
+        // Pass the information to the view along with $showQuestionModal
+        return view('admin.module', ['user' => $user, 'modules' => $modules]);
+    }
 
     public function addQuiz(Request $request)
     {

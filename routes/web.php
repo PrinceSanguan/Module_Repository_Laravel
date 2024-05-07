@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/student', [AdminController::class, 'student'])->name('admin.student');
     Route::get('admin/pending', [AdminController::class, 'pending'])->name('admin.pending');
 
+    Route::get('admin/module', [AdminController::class, 'module'])->name('admin.module');
+
     Route::get('admin/quiz', [AdminController::class, 'quiz'])->name('admin.quiz');
     Route::get('admin/quiz/{quizTitleId}', [AdminController::class, 'viewQuestions'])->name('admin.viewQuestion');
     Route::post('admin/quiz', [AdminController::class, 'addQuiz'])->name('admin.addQuiz');
