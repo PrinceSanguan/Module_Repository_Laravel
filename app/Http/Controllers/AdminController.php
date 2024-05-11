@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuizTitle;
 use App\Models\Question;
+use App\Models\Module;
+use App\Models\ModuleContent;
 
 class AdminController extends Controller
 {
@@ -126,8 +128,13 @@ class AdminController extends Controller
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
         }
     
-        // Retrieve quizzes published by Admin
+        // Retrieve quizzes published by Admin along with the count of questions
         $data = QuizTitle::all();
+
+        // Loop through each quiz title to count its associated questions
+        foreach ($data as $datas) {
+            $datas->questions_count = Question::where('quiztitle_id', $datas->id)->count();
+        }
     
         // Pass the information to the view along with $showQuestionModal
         return view('admin.quiz', ['user' => $user, 'data' => $data, 'questions' => null]);
@@ -177,11 +184,27 @@ class AdminController extends Controller
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
         }
     
-        // Retrieve quizzes published by Admin
-        $modules = QuizTitle::all();
+        // fetch all module
+        $modules = Module::all();
     
         // Pass the information to the view along with $showQuestionModal
         return view('admin.module', ['user' => $user, 'modules' => $modules]);
+    }
+
+    public function addModule(Request $request)
+    {
+        $user = $this->getUserInfo();
+
+        // Create a new Quiz instance
+        $module = new module();
+        $module->user_id = $user->id;
+        $module->title = $request->input('title');
+
+        // Save the quiz to the database
+        $module->save();
+
+        // Display success message as alert
+        echo "<script>alert('module is Added!'); window.location.href = '/admin/module';</script>";
     }
 
     public function addQuiz(Request $request)
@@ -222,4 +245,32 @@ class AdminController extends Controller
         // Display success message as alert
         echo "<script>alert('Question is Added!'); window.location.href = '/admin/quiz';</script>";
     }
+
+    public function addImage(Request $request)
+    {
+
+        // Validate the request data with custom error messages
+        $request->validate([
+            'file' => 'required|image',
+        ]);
+
+        // Check if a file is uploaded
+        if ($request->hasFile('file')) {
+            // Store the file and get the path
+            $path = $request->file('file')->store('/', ['disk' => 'my_disk']);
+        } else {
+            // Handle the case where no file is uploaded
+            return redirect()->route('register')->with('error', 'Please upload an image.');
+        }  
+
+        // Saving in the database
+        ModuleContent::create([
+            'module_id' => $request->input('module_id'),
+            'image' => $path,
+        ]);
+
+        // Display success message as alert
+        echo "<script>alert('powerpoint is Added!'); window.location.href = '/admin/module';</script>";
+        
+        }
 }

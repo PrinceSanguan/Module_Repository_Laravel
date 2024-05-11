@@ -31,6 +31,7 @@
                 <th>ID</th>
                 <th>Published By</th>
                 <th>Title</th>
+                <th>Number of Question</th>
                 <th>Date</th>
                 <th>Action</th>
               </tr>
@@ -42,6 +43,7 @@
                     <td>{{ $datas->id }}</td>
                     <td>{{ $datas->user->name }}</td>
                     <td>{{ $datas->title }}</td>
+                    <td>{{ $datas->questions_count }}</td>
                     <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
                     <td>
                       <button class="btn btn-sm btn-info addQuestionBtn" data-target="#addQuestionModal" data-quiztitleid="{{ $datas->id }}">Add Question</button>
@@ -64,11 +66,11 @@
 <!-- /.content-wrapper -->
 
 <!-- Add Quiz Modal -->
-<div class="modal fade" id="addQuizModal" tabindex="-1" role="dialog" aria-labelledby="addQuizModalLabel" aria-hidden="true">
+<div class="modal fade" id="addQuizModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="addQuestionModalLabel">Add Quiz</h5>
+              <h5 class="modal-title" id="addQuizModalLabel">Add Quiz</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
@@ -162,6 +164,7 @@
                   <table class="table table-bordered">
                         <thead>
                           <tr>
+                            <th>Number</th>
                             <th>Question</th>
                             <th>Choices A</th>
                             <th>Choices B</th>
@@ -171,18 +174,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          @if ($questions)
-                              @foreach ($questions as $question)
-                                  <tr>
-                                      <td>{{ $question->question }}</td>
-                                      <td>{{ $question->choicesA }}</td>
-                                      <td>{{ $question->choicesB }}</td>
-                                      <td>{{ $question->choicesC }}</td>
-                                      <td>{{ $question->choicesD }}</td>
-                                      <td>{{ $question->choicesE }}</td>
-                                  </tr>
-                              @endforeach
-                          @endif
+                          <tr>
+
+                          </tr>
                       </tbody>
                   </table>
               </div>
@@ -242,6 +236,7 @@ $(document).ready(function() {
                   // Loop through the fetched questions and populate the table
                   $.each(response.questions, function(index, question) {
                       var row = '<tr>' +
+                                  '<td>' + question.id + '</td>' +
                                   '<td>' + question.question + '</td>' +
                                   '<td>' + question.choicesA + '</td>' +
                                   '<td>' + question.choicesB + '</td>' +

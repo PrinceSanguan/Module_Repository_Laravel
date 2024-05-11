@@ -44,6 +44,13 @@ return [
             'throw' => false,
         ],
 
+        'my_disk' => [
+            'driver' => 'local',
+            'root' => public_path('upload-image'), //'root' => base_path('../uploads-image'), that is need to use when uploading to the infinity free
+            'visibility' => 'public',
+            'throw' => false,
+        ], 
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
