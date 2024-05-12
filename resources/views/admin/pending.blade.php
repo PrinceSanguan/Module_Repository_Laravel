@@ -31,33 +31,35 @@
         @else
           <table class="table table-hover text-nowrap">
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Name</th>
-                <th>User Type</th>
-                <th>Section</th>
-                <th>Date Created</th>
-                <th>Action</th>
-              </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>User Type</th>
+                    <th>Section</th>
+                    <th>Date Created</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
-              @foreach ($data as $datas)
+                @foreach ($data as $datas)
                 <tr>
-                  <td>{{ $datas->id }}</td>
-                  <td>{{ $datas->username }}</td>
-                  <td>{{ $datas->name }}</td>
-                  <td>{{ $datas->userType }}</td>
-                  <td>{{ $datas->section }}</td>
-                  <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
-                  <td>
-                    <button class="btn btn-sm btn-success">Activate</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                  </td>
+                    <td>{{ $datas->id }}</td>
+                    <td>{{ $datas->username }}</td>
+                    <td>{{ $datas->name }}</td>
+                    <td>{{ $datas->userType }}</td>
+                    <td>{{ $datas->section }}</td>
+                    <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
+
+                    <td>
+                      <button class="btn btn-sm btn-success activate-btn" data-id="{{ $datas->id }}">Activate</button>
+                      <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $datas->id }}">Delete</button>
+                    </td>
+
                 </tr>
-              @endforeach  
+                @endforeach
             </tbody>
-          </table>
+        </table>
         @endif
       </div>
       <!-- /.card-body -->
@@ -82,5 +84,51 @@
   </footer>
 </div>
 <!-- ./wrapper -->
+
+<script>
+  $(document).ready(function() {
+      // Activate button click event
+      $('.activate-btn').click(function() {
+          var userId = $(this).data('id');
+          $.ajax({
+              type: 'POST',
+              url: '/admin/pending/' + userId + '/activate',
+              data: {
+                  _token: '{{ csrf_token() }}'
+              },
+              success: function(response) {
+                  // Handle success response
+                  alert('User activated successfully.');
+                  location.reload(); // Refresh the page after successful activation
+              },
+              error: function(xhr, status, error) {
+                  // Handle error response
+                  alert('Error: ' + xhr.responseText);
+              }
+          });
+      });
+
+      // Delete button click event
+      $('.delete-btn').click(function() {
+          var userId = $(this).data('id');
+          $.ajax({
+              type: 'POST',
+              url: '/admin/pending/' + userId + '/delete',
+              data: {
+                  _token: '{{ csrf_token() }}'
+              },
+              success: function(response) {
+                  // Handle success response
+                  alert('User deleted successfully.');
+                  location.reload(); // Refresh the page after successful deletion
+              },
+              error: function(xhr, status, error) {
+                  // Handle error response
+                  alert('Error: ' + xhr.responseText);
+              }
+          });
+      });
+  });
+</script>
 
 @include('admin.footer')

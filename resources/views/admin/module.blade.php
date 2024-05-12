@@ -142,17 +142,17 @@
               </button>
           </div>
           <div class="modal-body">
-              <!-- Form inside the modal -->
-              <form method="post" action="{{route('admin.addImage')}}" enctype="multipart/form-data" >
+            <!-- Form inside the modal -->
+            <form method="post" action="{{ route('admin.addImage') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="module_id" id="moduleID" readonly>
-                <input type="file" name="file" required>
+                <input type="file" name="files[]" required multiple> <!-- Note the '[]' after the name attribute -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" id="saveQuestionBtn">Save</button>
                 </div>
             </form>
-          <!-- Form inside the modal -->
+            <!-- Form inside the modal -->
       </div>
   </div>
 </div>

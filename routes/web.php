@@ -33,7 +33,10 @@ Route::middleware(['auth'])->group(function () {
     /******************************************** This Route is For Admin *****************************/
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/student', [AdminController::class, 'student'])->name('admin.student');
+
     Route::get('admin/pending', [AdminController::class, 'pending'])->name('admin.pending');
+    Route::post('admin/pending/{id}/activate', [AdminController::class, 'pendingActivate'])->name('admin.pending_activate');
+    Route::post('admin/pending/{id}/delete', [AdminController::class, 'pendingDelete'])->name('admin.pending_delete');
 
     Route::get('admin/module', [AdminController::class, 'module'])->name('admin.module');
     Route::post('admin/module', [AdminController::class, 'addModule'])->name('admin.addModule');

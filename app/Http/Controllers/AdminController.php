@@ -61,12 +61,15 @@ class AdminController extends Controller
         // Get the total number of Quizzes
         $totalNumberOfQuiz = QuizTitle::all()->count();
 
+        // Get the total number of Modules
+        $totalNumberOfModule = Module::all()->count();
+
         // Get the total number of Pending Accounts
         $totalNumberOfPendingAccounts = User::where('status', 'deactivate')
         ->count();
 
         // Pass the information to the view
-        return view('admin.dashboard', compact('user', 'totalNumberOfStudent', 'totalNumberOfTeacher', 'totalNumberOfPendingAccounts', 'totalNumberOfQuiz'));
+        return view('admin.dashboard', compact('user', 'totalNumberOfStudent', 'totalNumberOfTeacher', 'totalNumberOfPendingAccounts', 'totalNumberOfQuiz', 'totalNumberOfModule'));
     }
 
     public function student() 
@@ -111,6 +114,41 @@ class AdminController extends Controller
 
         // Pass the information to the view
         return view('admin.pending', ['user' => $user, 'data' => $data]);
+    }
+
+    public function pendingActivate($id) 
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->back()->withErrors(['error' => 'User not found.']);
+        }
+
+        // Activate the user
+        $user->status = 'activate';
+        $user->save();
+
+        // Display success message as alert
+        echo "<script>alert('The student is activated!'); window.location.href = '/admin/pending';</script>";
+    }
+
+    public function pendingDelete($id) 
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->back()->withErrors(['error' => 'User not found.']);
+        }
+
+        // delete the user
+        $user->delete();
+
+        // Display success message as alert
+        echo "<script>alert('The student is deleted!'); window.location.href = '/admin/pending';</script>";
     }
 
     public function quiz()
@@ -320,29 +358,35 @@ public function deleteModule($moduleId)
 
     public function addImage(Request $request)
     {
-
         // Validate the request data with custom error messages
         $request->validate([
-            'file' => 'required|image',
+            'files.*' => 'required|file|mimes:jpeg,png,jpg,gif,pdf|max:2048', // Adjust the maximum file size as needed
+        ], [
+            'files.*.required' => 'All files are required.',
+            'files.*.file' => 'The uploaded file is not valid.',
+            'files.*.mimes' => 'All files must be either an image (jpeg, png, jpg, gif) or a PDF.',
+            'files.*.max' => 'Each file may not be greater than :max kilobytes.',
         ]);
 
-        // Check if a file is uploaded
-        if ($request->hasFile('file')) {
-            // Store the file and get the path
-            $path = $request->file('file')->store('/', ['disk' => 'my_disk']);
+        // Check if files are uploaded
+        if ($request->hasFile('files')) {
+            // Iterate over each file
+            foreach ($request->file('files') as $file) {
+                // Store the file and get the path
+                $path = $file->store('/', ['disk' => 'my_disk']);
+
+                // Saving in the database
+                ModuleContent::create([
+                    'module_id' => $request->input('module_id'),
+                    'image' => $path,
+                ]);
+            }
+
+            // Display success message as alert
+            echo "<script>alert('Module Content is Added!'); window.location.href = '/admin/module';</script>";
         } else {
             // Handle the case where no file is uploaded
-            return redirect()->route('register')->with('error', 'Please upload an image.');
-        }  
-
-        // Saving in the database
-        ModuleContent::create([
-            'module_id' => $request->input('module_id'),
-            'image' => $path,
-        ]);
-
-        // Display success message as alert
-        echo "<script>alert('Module Content is Added!'); window.location.href = '/admin/module';</script>";
-        
+            return redirect()->route('register')->with('error', 'Please upload at least one file.');
         }
+    }
 }

@@ -45,7 +45,7 @@
                   <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
                   <td>
                     <button class="btn btn-sm btn-info">View</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $datas->id }}">Delete</button>
                   </td>
                 </tr>
               @endforeach  
@@ -75,4 +75,26 @@
 </div>
 <!-- ./wrapper -->
 
+<script>
+  // Delete button click event
+  $('.delete-btn').click(function() {
+    var userId = $(this).data('id');
+    $.ajax({
+        type: 'POST',
+        url: '/admin/pending/' + userId + '/delete',
+        data: {
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(response) {
+            // Handle success response
+            alert('User deleted successfully.');
+            location.reload(); // Refresh the page after successful deletion
+        },
+        error: function(xhr, status, error) {
+            // Handle error response
+            alert('Error: ' + xhr.responseText);
+        }
+    });
+});
+</script>
 @include('admin.footer')

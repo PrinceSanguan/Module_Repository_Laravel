@@ -75,7 +75,7 @@
         <div class="col-lg-6 col-6">
           <div class="small-box bg-blue">
             <div class="inner">
-              <h3>4</h3>
+              <h3>{{ $totalNumberOfModule}}</h3>
 
               <p>Number of modules</p>
             </div>
