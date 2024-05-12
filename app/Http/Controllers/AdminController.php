@@ -288,12 +288,35 @@ public function deleteModule($moduleId)
         $addQuestion->choicesD = $request->input('choicesD');
         $addQuestion->choicesE = $request->input('choicesE');
     
-        // Save the question to the database
-        $addQuestion->save();
-    
-        // Display success message as alert
-        echo "<script>alert('Question is Added!'); window.location.href = '/admin/quiz';</script>";
+        // Determine the answer based on the user's choice
+    switch ($request->input('answer')) {
+        case 'A':
+            $addQuestion->answer = $request->input('choicesA');
+            break;
+        case 'B':
+            $addQuestion->answer = $request->input('choicesB');
+            break;
+        case 'C':
+            $addQuestion->answer = $request->input('choicesC');
+            break;
+        case 'D':
+            $addQuestion->answer = $request->input('choicesD');
+            break;
+        case 'E':
+            $addQuestion->answer = $request->input('choicesE');
+            break;
+        default:
+            // Handle the case where no answer is provided
+            // You might want to add validation to ensure that an answer is always selected
+            break;
     }
+
+    // Save the question to the database
+    $addQuestion->save();
+
+    // Display success message as alert
+    echo "<script>alert('Question is Added!'); window.location.href = '/admin/quiz';</script>";
+}
 
     public function addImage(Request $request)
     {

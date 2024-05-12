@@ -139,7 +139,38 @@
                         <label>Choices E</label>
                         <input type="text" class="form-control" id="choicesE" name="choicesE" required>
                     </div>
-            </div>
+
+                    <div class="form-group">
+                      <label>Answer</label>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label>
+                                  <input type="radio" name="answer" value="A" required> Choices A
+                              </label>
+                          </div>
+                          <div class="col-md-6">
+                              <label>
+                                  <input type="radio" name="answer" value="B" required> Choices B
+                              </label>
+                          </div>
+                          <div class="col-md-6">
+                              <label>
+                                  <input type="radio" name="answer" value="C" required> Choices C
+                              </label>
+                          </div>
+                          <div class="col-md-6">
+                              <label>
+                                  <input type="radio" name="answer" value="D" required> Choices D
+                              </label>
+                          </div>
+                          <div class="col-md-6">
+                              <label>
+                                  <input type="radio" name="answer" value="E" required> Choices E
+                              </label>
+                          </div>
+                      </div>
+                    </div>
+              </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" id="saveQuestionBtn">Save</button>
@@ -173,6 +204,7 @@
                             <th>Choices C</th>
                             <th>Choices D</th>
                             <th>Choices E</th>
+                            <th>Answer</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -246,6 +278,7 @@ $(document).ready(function() {
                                   '<td>' + question.choicesC + '</td>' +
                                   '<td>' + question.choicesD + '</td>' +
                                   '<td>' + question.choicesE + '</td>' +
+                                  '<td>' + question.answer + '</td>' +
                                 '</tr>';
                       $('#viewQuestionModal tbody').append(row);
                   });

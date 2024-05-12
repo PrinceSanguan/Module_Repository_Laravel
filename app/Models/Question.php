@@ -17,5 +17,6 @@ class Question extends Model
         'choicesC',
         'choicesD',
         'choicesE',
+        'answer',
     ];
 }
