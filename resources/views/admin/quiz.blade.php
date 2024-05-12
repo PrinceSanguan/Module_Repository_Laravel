@@ -27,34 +27,36 @@
         <div class="card-body table-responsive p-0">
           <table class="table table-hover text-nowrap">
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>Published By</th>
-                <th>Title</th>
-                <th>Number of Question</th>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
+                <tr>
+                    <th>Number</th>
+                    <th>Published By</th>
+                    <th>Title</th>
+                    <th>Number of Question</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
-              @if ($data)
+                @if ($data)
+                @php $count = 1; @endphp <!-- Initialize count variable -->
                 @foreach ($data as $datas)
-                  <tr>
-                    <td>{{ $datas->id }}</td>
+                <tr>
+                    <td>{{ $count++ }}</td> <!-- Increment count for each iteration -->
                     <td>{{ $datas->user->name }}</td>
                     <td>{{ $datas->title }}</td>
                     <td>{{ $datas->questions_count }}</td>
                     <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
                     <td>
-                      <button class="btn btn-sm btn-info addQuestionBtn" data-target="#addQuestionModal" data-quiztitleid="{{ $datas->id }}">Add Question</button>
-                      <button class="btn btn-sm btn-warning viewQuestionBtn" data-quiztitleid="{{ $datas->id }}">View</button>
-                      <button class="btn btn-sm btn-danger deleteQuizBtn" data-quiztitleid="{{ $datas->id }}">Delete</button>
+                        <button class="btn btn-sm btn-info addQuestionBtn" data-target="#addQuestionModal"
+                            data-quiztitleid="{{ $datas->id }}">Add Question</button>
+                        <button class="btn btn-sm btn-warning viewQuestionBtn" data-quiztitleid="{{ $datas->id }}">View</button>
+                        <button class="btn btn-sm btn-danger deleteQuizBtn" data-quiztitleid="{{ $datas->id }}">Delete</button>
                     </td>
-                  </tr>
-                @endforeach  
-              @endif
+                </tr>
+                @endforeach
+                @endif
             </tbody>
-          </table>
+        </table>
         </div>
         <!-- /.card-body -->
       </div>
@@ -222,6 +224,7 @@ $(document).ready(function() {
   $(document).ready(function() {
       // Show the question modal when View Question button is clicked
       $(document).on('click', '.viewQuestionBtn', function() {
+        var totalCount = 0; // Initialize total count variable for each module
           // Get the quiz title ID from the button's data attribute
           var quizTitleId = $(this).data('quiztitleid');
           
@@ -236,7 +239,7 @@ $(document).ready(function() {
                   // Loop through the fetched questions and populate the table
                   $.each(response.questions, function(index, question) {
                       var row = '<tr>' +
-                                  '<td>' + question.id + '</td>' +
+                                  '<td>' + (++totalCount) + '</td>' +
                                   '<td>' + question.question + '</td>' +
                                   '<td>' + question.choicesA + '</td>' +
                                   '<td>' + question.choicesB + '</td>' +
@@ -290,7 +293,7 @@ $(document).ready(function() {
         }
     });
 });
-  </script>
+</script>
   
 
 @include('admin.footer')

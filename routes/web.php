@@ -38,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/module', [AdminController::class, 'module'])->name('admin.module');
     Route::post('admin/module', [AdminController::class, 'addModule'])->name('admin.addModule');
     Route::post('admin/module/add-image', [AdminController::class, 'addImage'])->name('admin.addImage');
+    Route::get('admin/module/{moduleId}', [AdminController::class, 'viewModules'])->name('admin.viewModule');
+    Route::get('admin/delete-module/{moduleId}', [AdminController::class, 'deleteModule']);
 
     Route::get('admin/quiz', [AdminController::class, 'quiz'])->name('admin.quiz');
     Route::get('admin/quiz/{quizTitleId}', [AdminController::class, 'viewQuestions'])->name('admin.viewQuestion');

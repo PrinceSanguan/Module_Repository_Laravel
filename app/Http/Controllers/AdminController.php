@@ -149,6 +149,15 @@ class AdminController extends Controller
         return response()->json(['questions' => $questions]);
     }
 
+    public function viewModules(Request $request, $moduleId)
+    {
+        // Fetch module content based on the module id
+        $modules = ModuleContent::where('module_id', $moduleId)->get();
+
+        // Return the modules data as JSON
+        return response()->json(['modules' => $modules]);
+    }
+
     //////////////////////////// Deleting Quiz ///////////////////////////////////////
     public function deleteQuiz($quizTitleId)
     {
@@ -169,6 +178,42 @@ class AdminController extends Controller
     }
     //////////////////////////// Deleting Quiz ///////////////////////////////////////
 
+//////////////////////////// Deleting Module ///////////////////////////////////////
+public function deleteModule($moduleId)
+{
+    // Find the module by ID
+    $module = Module::find($moduleId);
+
+    // Check if the module exists
+    if (!$module) {
+        // Return a response indicating failure (404 Not Found)
+        return response()->json(['error' => 'Module not found.'], 404);
+    }
+
+    // Retrieve all ModuleContent records associated with the Module
+    $moduleContents = ModuleContent::where('module_id', $moduleId)->get();
+
+    // Loop through the ModuleContent records
+    foreach ($moduleContents as $moduleContent) {
+        // Delete the associated image
+        $imagePath = public_path('upload-image/') . $moduleContent->image;
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Delete the image file
+        }
+
+        // Delete the ModuleContent record
+        $moduleContent->delete();
+    }
+
+    // Delete the module
+    $module->delete();
+
+    // Return a response indicating success
+    return response()->json(['message' => 'Module and associated images deleted successfully.']);
+}
+//////////////////////////// Deleting Module ///////////////////////////////////////
+
+
     public function module()
     {
         // Your existing logic to retrieve user data and quizzes
@@ -186,6 +231,10 @@ class AdminController extends Controller
     
         // fetch all module
         $modules = Module::all();
+
+        foreach ($modules as $module) {
+            $module->modulecontent_count = ModuleContent::where('module_id', $module->id)->count();
+        }
     
         // Pass the information to the view along with $showQuestionModal
         return view('admin.module', ['user' => $user, 'modules' => $modules]);
@@ -270,7 +319,7 @@ class AdminController extends Controller
         ]);
 
         // Display success message as alert
-        echo "<script>alert('powerpoint is Added!'); window.location.href = '/admin/module';</script>";
+        echo "<script>alert('Module Content is Added!'); window.location.href = '/admin/module';</script>";
         
         }
 }
