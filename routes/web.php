@@ -53,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
 
     /******************************************** This Route is For Student *****************************/
     Route::get('student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
+
+    Route::get('student/exam', [StudentController::class, 'exam'])->name('student.exam');
+
+    Route::get('student/quiz', [StudentController::class, 'quiz'])->name('student.quiz');
     /******************************************** This Route is For Student *****************************/
 
     /******************************************** This Route is For Logout *****************************/

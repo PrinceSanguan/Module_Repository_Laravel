@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('quiz_id');
+            $table->enum('status', ['completed', 'incomplete', 'pending'])->default('pending');
+            $table->string('score');
             $table->timestamps();
 
             // Define foreign key constraint

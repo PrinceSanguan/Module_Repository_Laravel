@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QuizTitle;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\StudentQuiz;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
@@ -46,5 +48,46 @@ class StudentController extends Controller
 
         // Pass the information to the view
         return view('student.dashboard', ['user' => $user] );
+    }
+
+    public function quiz() 
+    {
+         $user = $this->getUserInfo();
+
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
+        }
+
+        // Check if the user type is 'student'
+        if ($user->userType !== 'student') {
+            // Redirect to the same page with an error message
+            return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
+        }
+
+        $quiz = QuizTitle::with('user', 'questions')->get();
+
+        // Pass the information to the view
+        return view('student.quiz', ['user' => $user, 'quiz' => $quiz]);
+    }
+
+    public function exam() 
+    {
+         $user = $this->getUserInfo();
+
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
+        }
+
+        // Check if the user type is 'student'
+        if ($user->userType !== 'student') {
+            // Redirect to the same page with an error message
+            return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
+        }
+
+
+        // Pass the information to the view
+        return view('student.exam', ['user' => $user]);
     }
 }

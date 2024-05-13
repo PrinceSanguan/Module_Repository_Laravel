@@ -19,4 +19,9 @@ class QuizTitle extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'quiztitle_id'); // Explicitly specify the foreign key
+    }
 }

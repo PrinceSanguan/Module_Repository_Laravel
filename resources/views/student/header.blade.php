@@ -9,6 +9,9 @@
 
   <link rel="shortcut icon" href="{{asset('ivn.ico')}}" type="image/x-icon">
 
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
   <!-- Google Font: Source Sans Pro -->
   <link
   rel="stylesheet"

@@ -19,4 +19,10 @@ class Question extends Model
         'choicesE',
         'answer',
     ];
+
+    // Define the relationship: a question belongs to a quiz title
+    public function quizTitle()
+    {
+        return $this->belongsTo(QuizTitle::class);
+    }
 }
