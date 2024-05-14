@@ -46,7 +46,8 @@
                   <td>Taken</td>
                   <td>2/2</td>
                   <td>
-                    <button class="btn btn-sm btn-info studentExamBtn"> Take the quiz</button>
+                    <button class="btn btn-sm btn-info studentExamBtn" data-quiz-id="{{ $quizzes->id }}">Take the quiz</button>
+                  </td>
                   </td>
                 </tr>
               @endforeach  
@@ -78,18 +79,14 @@
 
 <script>
   $(document).ready(function() {
-    $('.studentExamBtn').click(function() {
-      $.ajax({
-        url: "{{ route('student.exam') }}",
-        type: 'GET',
-        success: function(response) {
-          window.location.href = "{{ route('student.exam') }}";
-        },
-        error: function(xhr, status, error) {
-          console.error('Error:', error);
-        }
+      // Add click event listener to the button with class 'studentExamBtn'
+      $('.studentExamBtn').click(function() {
+          // Retrieve the quiz ID from the data attribute
+          var quizId = $(this).data('quiz-id');
+          
+          // Redirect user to the 'student.exam' route with the quiz ID as a parameter
+          window.location.href = "{{ route('student.exam') }}?quiz_id=" + quizId;
       });
-    });
   });
 </script>
 

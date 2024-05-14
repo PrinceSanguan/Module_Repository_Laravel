@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\QuizTitle;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\StudentQuiz;
+use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
@@ -31,7 +31,7 @@ class StudentController extends Controller
     }
     
 
-    public function index() 
+    public function index($id) 
     {
          $user = $this->getUserInfo();
 
@@ -71,23 +71,28 @@ class StudentController extends Controller
         return view('student.quiz', ['user' => $user, 'quiz' => $quiz]);
     }
 
-    public function exam() 
+    public function exam(Request $request) 
     {
-         $user = $this->getUserInfo();
-
+        $user = $this->getUserInfo();
+    
         // Check if the user is found
         if (!$user) {
             return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
         }
-
+    
         // Check if the user type is 'student'
         if ($user->userType !== 'student') {
             // Redirect to the same page with an error message
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
         }
 
+        // Get the quiz ID from the request
+        $quizId = $request->query('quiz_id');
 
+        // Fetch questions based on the quiz ID
+        $questions = Question::where('quiztitle_id', $quizId)->get();
+    
         // Pass the information to the view
-        return view('student.exam', ['user' => $user]);
+        return view('student.exam', ['user' => $user, 'questions' => $questions]);
     }
 }

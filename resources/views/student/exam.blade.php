@@ -2,35 +2,23 @@
 
 <div class="container mt-5">
   <div class="card">
-    <div class="card-header">
-      Question 1:
-    </div>
-    <div class="card-body">
-      <p class="card-text">What is the capital of France?</p>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="question1" id="option1" value="option1">
-        <label class="form-check-label" for="option1">Paris</label>
+    @foreach ($questions as $question)
+      <div class="card">
+          <div class="card-body">
+              <p class="card-text">{{ $question->question }}</p>
+              <!-- Display choices for the question -->
+              <ul>
+                  <li>{{ $question->choicesA }}</li>
+                  <li>{{ $question->choicesB }}</li>
+                  <li>{{ $question->choicesC }}</li>
+                  <li>{{ $question->choicesD }}</li>
+                  <li>{{ $question->choicesE }}</li>
+              </ul>
+              <!-- Display answer for the question -->
+              <p>Answer: {{ $question->answer }}</p>
+          </div>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="question1" id="option2" value="option2">
-        <label class="form-check-label" for="option2">Rome</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="question1" id="option3" value="option3">
-        <label class="form-check-label" for="option3">Berlin</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="question1" id="option4" value="option4">
-        <label class="form-check-label" for="option4">Madrid</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="question1" id="option5" value="option5">
-        <label class="form-check-label" for="option5">London</label>
-      </div>
-    </div>
-    <div class="card-footer text-muted">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+    @endforeach 
   </div>
 </div>
 
