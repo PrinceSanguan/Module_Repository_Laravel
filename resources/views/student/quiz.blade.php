@@ -46,9 +46,13 @@
                   <td>Taken</td>
                   <td>2/2</td>
                   <td>
-                    <button class="btn btn-sm btn-info studentExamBtn" data-quiz-id="{{ $quizzes->id }}">Take the quiz</button>
-                  </td>
-                  </td>
+                    <form id="quizForm" method="GET" action="{{ route('student.exam') }}">
+                        @csrf
+                        <input type="hidden" id="quizIdInput" name="quiz_id" value="{{ $quizzes->id }}">
+                        <input type="hidden" id="questionNumberInput" name="question_number" value="1">
+                        <button type="submit" class="btn btn-sm btn-info studentExamBtn">Take the quiz</button>
+                    </form>
+                </td>
                 </tr>
               @endforeach  
             @endif
@@ -77,7 +81,7 @@
 </div>
 <!-- ./wrapper -->
 
-<script>
+{{-- <script>
   $(document).ready(function() {
       // Add click event listener to the button with class 'studentExamBtn'
       $('.studentExamBtn').click(function() {
@@ -88,6 +92,6 @@
           window.location.href = "{{ route('student.exam') }}?quiz_id=" + quizId;
       });
   });
-</script>
+</script> --}}
 
 @include('student.footer')

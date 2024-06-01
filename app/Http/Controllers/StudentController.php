@@ -85,46 +85,68 @@ class StudentController extends Controller
             // Redirect to the same page with an error message
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
         }
-
+    
         // Get the quiz ID from the request
         $quizId = $request->query('quiz_id');
-
-        // Fetch questions based on the quiz ID
-        $questions = Question::where('quiztitle_id', $quizId)->get();
+    
+        // Get the current question number from the request
+        $questionNumber = $request->query('question_number', 1);
+    
+        // Fetch the question based on the quiz ID and question number
+        $question = Question::where('quiztitle_id', $quizId)
+                           ->orderBy('id', 'asc')
+                           ->skip($questionNumber - 1)
+                           ->first();
+    
+        // Count total number of questions for this quiz
+        $totalQuestions = Question::where('quiztitle_id', $quizId)->count();
     
         // Pass the information to the view
-        return view('student.exam', ['user' => $user, 'questions' => $questions]);
+        return view('student.exam', ['user' => $user, 'question' => $question, 'questionNumber' => $questionNumber, 'totalQuestions' => $totalQuestions]);
     }
+    
 
     public function checkAnswer(Request $request) 
     {
-        $questions = Question::all(); // Adjust based on your model and how you fetch questions
-        $results = [];
+        // Retrieve the quiz ID and current question number from the request
+        $quizId = $request->input('quiz_id');
+        $questionNumber = $request->input('question_number');
     
-        foreach ($questions as $question) {
-            $questionId = $question->id;
-            $userAnswer = $request->input("question_$questionId");
+        // Retrieve the question based on the quiz ID and question number
+        $question = Question::where('quiztitle_id', $quizId)
+                            ->where('id', $questionNumber)
+                            ->first();
     
-            if ($userAnswer == $question->answer) {
-                $results[$questionId] = 'correct';
-                $message = 'You are Correct!';
-                $status = 'success';
-            } else {
-                $results[$questionId] = 'wrong';
-                $message = 'You are Wrong!';
-                $status = 'error';
-            }
+        // Check if the question exists
+        if (!$question) {
+            // Handle error if question does not exist
+            return redirect()->route('student.quiz')->withErrors(['error' => 'Question not found.']);
+        }
     
-            // Fetch the next question based on the current question ID
-            $nextQuestion = Question::where('id', '>', $questionId)->orderBy('id')->first();
+        // Retrieve the user's answer for this question
+        $userAnswer = $request->input("question_$questionNumber");
     
-            if ($nextQuestion) {
-                // Redirect to the next question
-                return redirect()->route('student.exam', ['quiz_id' => $nextQuestion->id])->with($status, $message);
-            } else {
-                // No more questions, redirect to the quiz summary or end
-                return redirect()->route('student.quiz')->with($status, $message);
-            }
+        // Check if the user's answer is correct
+        if ($userAnswer == $question->answer) {
+            $message = 'You are Correct!';
+            $status = 'success';
+        } else {
+            $message = 'You are Wrong!';
+            $status = 'error';
+        }
+    
+        // Fetch the next question based on the current question number
+        $nextQuestion = Question::where('quiztitle_id', $quizId)
+                                ->where('id', '>', $questionNumber)
+                                ->orderBy('id')
+                                ->first();
+    
+        if ($nextQuestion) {
+            // Redirect to the next question
+            return redirect()->route('student.exam', ['quiz_id' => $quizId, 'question_number' => $nextQuestion->id])->with($status, $message);
+        } else {
+            // No more questions, redirect to the quiz summary or end
+            return redirect()->route('student.quiz')->with($status, $message);
         }
     }
 }
