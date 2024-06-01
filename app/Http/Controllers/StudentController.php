@@ -31,7 +31,7 @@ class StudentController extends Controller
     }
     
 
-    public function index($id) 
+    public function index() 
     {
          $user = $this->getUserInfo();
 
@@ -94,5 +94,37 @@ class StudentController extends Controller
     
         // Pass the information to the view
         return view('student.exam', ['user' => $user, 'questions' => $questions]);
+    }
+
+    public function checkAnswer(Request $request) 
+    {
+        $questions = Question::all(); // Adjust based on your model and how you fetch questions
+        $results = [];
+    
+        foreach ($questions as $question) {
+            $questionId = $question->id;
+            $userAnswer = $request->input("question_$questionId");
+    
+            if ($userAnswer == $question->answer) {
+                $results[$questionId] = 'correct';
+                $message = 'You are Correct!';
+                $status = 'success';
+            } else {
+                $results[$questionId] = 'wrong';
+                $message = 'You are Wrong!';
+                $status = 'error';
+            }
+    
+            // Fetch the next question based on the current question ID
+            $nextQuestion = Question::where('id', '>', $questionId)->orderBy('id')->first();
+    
+            if ($nextQuestion) {
+                // Redirect to the next question
+                return redirect()->route('student.exam', ['quiz_id' => $nextQuestion->id])->with($status, $message);
+            } else {
+                // No more questions, redirect to the quiz summary or end
+                return redirect()->route('student.quiz')->with($status, $message);
+            }
+        }
     }
 }

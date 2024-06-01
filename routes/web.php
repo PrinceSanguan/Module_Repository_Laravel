@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
 
     Route::get('student/exam', [StudentController::class, 'exam'])->name('student.exam');
+    Route::post('student/exam', [StudentController::class, 'checkAnswer'])->name('student.check.answer');
 
     Route::get('student/quiz', [StudentController::class, 'quiz'])->name('student.quiz');
     /******************************************** This Route is For Student *****************************/
