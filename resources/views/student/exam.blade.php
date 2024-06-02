@@ -26,7 +26,6 @@
       @csrf
       <input type="hidden" name="quiz_id" value="{{ $question->quiztitle_id }}">
       <input type="hidden" name="question_number" value="{{ $questionNumber + 1 }}">
-      <button type="submit" class="btn btn-secondary">Next Question</button>
     </form>
     @endif
   </div>

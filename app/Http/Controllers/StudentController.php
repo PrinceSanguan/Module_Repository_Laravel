@@ -201,7 +201,7 @@ class StudentController extends Controller
             // No more questions, mark the quiz as taken and redirect to the quiz summary or end
             $studentResult->availability = 'taken';
             $studentResult->save();
-            return redirect()->route('student.quiz')->with(['message' => 'You have finished the exam.']);
+            return redirect()->route('student.quiz')->with(['success' => 'You have finished the exam.']);
         }
     }
     
