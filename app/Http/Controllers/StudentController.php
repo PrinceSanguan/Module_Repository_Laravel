@@ -171,15 +171,15 @@ class StudentController extends Controller
         // Retrieve the user's answer for this question
         $userAnswer = $request->input("question_$questionNumber");
     
-        // Retrieve the existing StudentResult
-        $studentResult = StudentResult::where('user_id', $user->id)
-                                      ->where('quiztitle_id', $quizId)
-                                      ->first();
+        // Retrieve or create the StudentResult
+        $studentResult = StudentResult::firstOrNew([
+            'user_id' => $user->id,
+            'quiztitle_id' => $quizId
+        ]);
     
         // Check if the user's answer is correct and update the score
         if ($userAnswer == $question->answer) {
             $studentResult->score += 1;
-
         } 
     
         // Save the updated score
@@ -198,7 +198,8 @@ class StudentController extends Controller
             // No more questions, mark the quiz as taken and redirect to the quiz summary or end
             $studentResult->availability = 'taken';
             $studentResult->save();
-
+            return redirect()->route('student.quiz')->with(['message' => 'You have finished the exam.']);
         }
     }
+    
 }
