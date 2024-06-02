@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">My Dashboard</h1>
+            <h1 class="m-0">My profile</h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -17,45 +17,64 @@
     </div>
     <!-- /.content-header -->
 
-    <!--Main Content Here --->
-    <div class="row">
+<!--Main Content Here --->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      
+      <!-- Profile Image -->
+      <div class="card card-primary card-outline">
+        <div class="card-body box-profile">
 
-        <!-- Number of Quiz -->
-        <div class="col-lg-6 col-12">
-          <div class="small-box bg-pink">
-            <div class="inner">
-              <h3>{{$studentResultCount}}/{{$quizTitleCount}}</h3>
+          <h3 class="profile-username text-center">{{$user->name}}</h3>
 
-              <p>Answered quizzes</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-pen"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-             <i class="fas fa-arrow-circle-right"></i>
-            </a>
-          </div>
+          <p class="text-muted text-center">{{$user->section}}</p>
+
         </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
 
-        <!-- Number of Module -->
-        <div class="col-lg-6 col-12">
-          <div class="small-box bg-blue">
-            <div class="inner">
-              <h3>{{$moduleCount}}</h3>
+      <!-- Number of Quiz -->
+      <div class="col-lg-12 col-12">
+        <div class="small-box bg-pink">
+          <div class="inner">
+            <h3>{{$studentResultCount}}/{{$quizTitleCount}}</h3>
 
-              <p>Number of Modules</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-book"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-              <i class="fas fa-arrow-circle-right"></i>
-            </a>
+            <p>Answered quizzes</p>
           </div>
+          <div class="icon">
+            <i class="fas fa-pen"></i>
+          </div>
+          <a href="#" class="small-box-footer">
+           <i class="fas fa-arrow-circle-right"></i>
+          </a>
         </div>
+      </div>
+
+      <!-- Number of Module -->
+      <div class="col-lg-12 col-12">
+        <div class="small-box bg-blue">
+          <div class="inner">
+            <h3>{{$moduleCount}}</h3>
+
+            <p>Number of Modules</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <a href="#" class="small-box-footer">
+            <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
 
     </div>
-  <!--/.Main Content Here--->
+    <!-- /.card -->
+  </div>
+</div>
+<!--/.Main Content Here--->
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -70,5 +89,6 @@
   </footer>
 </div>
 <!-- ./wrapper -->
+
 
 @include('student.footer')

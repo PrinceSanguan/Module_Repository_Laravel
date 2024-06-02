@@ -14,6 +14,12 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item d-sm-inline">
+        <a href="{{route('student.dashboard')}}" class="nav-link">{{ $user->name }}</a>
+      </li>
+    </ul>
   </nav>
   <!-- /.navbar -->
   
@@ -69,15 +75,6 @@
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Modules
-              </p>
-            </a>
-          </li>
-  
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user-cog"></i>
-              <p>
-                Profile
               </p>
             </a>
           </li>

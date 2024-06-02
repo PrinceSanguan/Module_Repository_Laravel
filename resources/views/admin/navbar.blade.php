@@ -73,7 +73,7 @@
             </a>
           </li>
   
-          <li class="nav-item">
+{{--           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-tie"></i>
               <p>
@@ -81,7 +81,7 @@
                 <span class="right badge badge-danger">Soon</span>
               </p>
             </a>
-          </li>
+          </li> --}}
   
           <li class="nav-item">
             <a href="{{route('admin.quiz')}}" class="nav-link">
@@ -97,15 +97,6 @@
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Module
-              </p>
-            </a>
-          </li>
-  
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user-cog"></i>
-              <p>
-                Profile
               </p>
             </a>
           </li>

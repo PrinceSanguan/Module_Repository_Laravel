@@ -249,5 +249,5 @@ class StudentController extends Controller
         // Pass the information to the view
         return view('student.module', ['user' => $user, 'modules' => $modules]);
     }
-    
+
 }

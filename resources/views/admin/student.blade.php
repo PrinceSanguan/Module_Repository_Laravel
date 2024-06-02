@@ -44,7 +44,7 @@
                   <td>{{ $datas->section }}</td>
                   <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
                   <td>
-                    <button class="btn btn-sm btn-info">View</button>
+                    {{-- <button class="btn btn-sm btn-info">View</button> --}}
                     <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $datas->id }}">Delete</button>
                   </td>
                 </tr>
