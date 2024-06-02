@@ -5,7 +5,7 @@
     <form method="post" action="{{ route('student.check.answer') }}">
       @csrf
       <div class="card-body">
-        <h3 class="card-text">{{ $question->id }}. {{ $question->question }}</h3>
+        <h3 class="card-text">{{ $question->question }}</h3>
           <!-- Display choices for the question -->
           @foreach(['A', 'B', 'C', 'D', 'E'] as $choice)
           <div class="col-md-6">

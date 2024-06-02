@@ -179,12 +179,8 @@ class StudentController extends Controller
         // Check if the user's answer is correct and update the score
         if ($userAnswer == $question->answer) {
             $studentResult->score += 1;
-            $message = 'You are Correct!';
-            $status = 'success';
-        } else {
-            $message = 'You are Wrong!';
-            $status = 'error';
-        }
+
+        } 
     
         // Save the updated score
         $studentResult->save();
@@ -197,12 +193,12 @@ class StudentController extends Controller
     
         if ($nextQuestion) {
             // Redirect to the next question
-            return redirect()->route('student.exam', ['quiz_id' => $quizId, 'question_number' => $questionNumber + 1])->with($status, $message);
+            return redirect()->route('student.exam', ['quiz_id' => $quizId, 'question_number' => $questionNumber + 1]);
         } else {
             // No more questions, mark the quiz as taken and redirect to the quiz summary or end
             $studentResult->availability = 'taken';
             $studentResult->save();
-            return redirect()->route('student.quiz')->with($status, $message);
+
         }
     }
 }
