@@ -47,7 +47,7 @@
            with font-awesome or any other icon font library -->
   
            <li class="nav-item">
-            <a href="{{ route('student.dashboard') }}" class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('student.dashboard') }}" class="nav-link {{ Route::is('student.dashboard') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -56,7 +56,7 @@
           </li>
   
           <li class="nav-item">
-            <a href="{{ route('student.quiz') }}" class="nav-link">
+            <a href="{{ route('student.quiz') }}" class="nav-link {{ Route::is('student.quiz') ? 'active' : '' }}">
               <i class="nav-icon fas fa-pen"></i>
               <p>
                 Quizzes
@@ -65,7 +65,7 @@
           </li>
   
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('student.module') }}" class="nav-link {{ Route::is('student.module') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Modules

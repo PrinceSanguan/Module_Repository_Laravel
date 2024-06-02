@@ -204,5 +204,24 @@ class StudentController extends Controller
             return redirect()->route('student.quiz')->with(['success' => 'You have finished the exam.']);
         }
     }
+
+    public function module() 
+    {
+        $user = $this->getUserInfo();
+    
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
+        }
+    
+        // Check if the user type is 'student'
+        if ($user->userType !== 'student') {
+            // Redirect to the same page with an error message
+            return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
+        }
+    
+        // Pass the information to the view
+        return view('student.module', ['user' => $user]);
+    }
     
 }
