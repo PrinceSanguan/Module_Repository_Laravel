@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudentResult;
+use App\Models\Module;
+use App\Models\ModuleContent;
 
 class StudentController extends Controller
 {
@@ -219,9 +221,16 @@ class StudentController extends Controller
             // Redirect to the same page with an error message
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
         }
+
+        // fetch all module
+        $modules = Module::all();
+
+        foreach ($modules as $module) {
+            $module->modulecontent_count = ModuleContent::where('module_id', $module->id)->count();
+        }
     
         // Pass the information to the view
-        return view('student.module', ['user' => $user]);
+        return view('student.module', ['user' => $user, 'modules' => $modules]);
     }
     
 }

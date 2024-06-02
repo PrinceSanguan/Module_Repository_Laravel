@@ -35,15 +35,19 @@
             </tr>
           </thead>
           <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                      <button type="submit" class="btn btn-sm btn-info studentExamBtn">View the Module</button>
-                  </td>
-                </tr>
+            @if ($modules)
+              @foreach ($modules as $module)
+                  <tr>
+                      <td>{{ $module->title }}</td>
+                      <td>{{ $module->user->name }}</td>
+                      <td>{{ $module->modulecontent_count }}</td>
+                      <td>{{ $module->created_at->format('F j, Y g:ia') }}</td>
+                      <td>
+                        <button class="btn btn-sm btn-info viewModuleBtn" data-moduleid="{{ $module->id }}">View the module</button>
+                      </td>
+                  </tr>
+              @endforeach
+            @endif
           </tbody>
         </table>
       </div>
@@ -68,5 +72,134 @@
   </footer>
 </div>
 <!-- ./wrapper -->
+
+<!-- View Module Modal -->
+<div class="modal fade" id="viewModuleModal" tabindex="-1" role="dialog" aria-labelledby="viewModuleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="viewModuleModalLabel">View Module</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div id="moduleCarousel" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                      <!-- Carousel items will be dynamically added here -->
+                  </div>
+                  <a class="carousel-control-prev" href="#moduleCarousel" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#moduleCarousel" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                  </a>
+                  <!-- Page numbering -->
+                  <div class="carousel-page-number text-center mt-2"></div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- View Module Modal -->
+
+<script>
+  $(document).ready(function() {
+      // View the Module Content
+      $('.viewModuleBtn').click(function() {
+          $('#viewModuleModal').modal('show');
+      });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+      var totalModules = 0;
+      var currentModuleIndex = 0;
+
+      // Show the Module modal when View Modal button is clicked
+      $(document).on('click', '.viewModuleBtn', function() {
+          var moduleId = $(this).data('moduleid');
+
+          // Perform an AJAX request to fetch images based on the module ID
+          $.ajax({
+              url: '/admin/module/' + moduleId,
+              type: 'GET',
+              success: function(response) {
+                  totalModules = response.modules.length;
+                  currentModuleIndex = 0;
+
+                  // Clear existing carousel items
+                  $('#moduleCarousel .carousel-inner').empty();
+
+                  // Loop through the fetched images and populate the carousel
+                  $.each(response.modules, function(index, module) {
+                      var item = $('<div class="carousel-item">').append(
+                          $('<img class="d-block w-100" alt="Module Image">').attr('src', "{{ asset('upload-image/') }}/" + module.image)
+                      );
+
+                      // Add active class to the first item
+                      if (index === 0) {
+                          item.addClass('active');
+                      }
+
+                      $('#moduleCarousel .carousel-inner').append(item);
+                  });
+
+                  // Update page numbering
+                  updatePageNumber();
+
+                  // Show the modal
+                  $('#viewModuleModal').modal('show');
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error fetching modules:', error);
+              }
+          });
+      });
+
+      // Update page numbering
+      function updatePageNumber() {
+          var pageNumberText = (currentModuleIndex + 1) + ' out of ' + totalModules;
+          $('.carousel-page-number').text(pageNumberText);
+
+          // Disable next button if on the last page
+          if (currentModuleIndex === totalModules - 1) {
+              $('.carousel-control-next').addClass('disabled');
+          } else {
+              $('.carousel-control-next').removeClass('disabled');
+          }
+      }
+
+      // Handle carousel slide event
+      $('#moduleCarousel').on('slid.bs.carousel', function() {
+          currentModuleIndex = $('#moduleCarousel .carousel-item.active').index();
+          updatePageNumber();
+      });
+
+      // Handle next button click
+      $('.carousel-control-next').click(function() {
+          if (currentModuleIndex < totalModules - 1) {
+              currentModuleIndex++;
+              $('#moduleCarousel').carousel('next');
+          } else {
+              $('#viewModuleModal').modal('hide');
+          }
+      });
+
+      // Handle previous button click
+      $('.carousel-control-prev').click(function() {
+          if (currentModuleIndex > 0) {
+              currentModuleIndex--;
+              $('#moduleCarousel').carousel('prev');
+          }
+      });
+  });
+</script>
 
 @include('student.footer')
