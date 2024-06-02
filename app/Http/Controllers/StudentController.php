@@ -53,23 +53,31 @@ class StudentController extends Controller
 
     public function quiz() 
     {
-         $user = $this->getUserInfo();
-
+        $user = $this->getUserInfo();
+    
         // Check if the user is found
         if (!$user) {
             return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
         }
-
+    
         // Check if the user type is 'student'
         if ($user->userType !== 'student') {
             // Redirect to the same page with an error message
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
         }
-
+    
+        // Retrieve the quizzes with their associated users and questions
         $quiz = QuizTitle::with('user', 'questions')->get();
-
+    
+        // Retrieve the student's exam results
+        $studentResults = StudentResult::where('user_id', $user->id)->get();
+    
         // Pass the information to the view
-        return view('student.quiz', ['user' => $user, 'quiz' => $quiz]);
+        return view('student.quiz', [
+            'user' => $user,
+            'quiz' => $quiz,
+            'studentResults' => $studentResults
+        ]);
     }
 
     public function exam(Request $request) 

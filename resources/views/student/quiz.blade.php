@@ -40,6 +40,7 @@
               <th>Prepared by:</th>
               <th>Number of Question:</th>
               <th>Date Prepared:</th>
+              <th>Result</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -51,14 +52,23 @@
                   <td>{{ $quizzes->user->name }}</td>
                   <td>{{ $quizzes->questions->count() }}</td>
                   <td>{{ $quizzes->created_at->format('F j, Y g:ia') }}</td>
-                  <td>
-                    <form id="quizForm" method="GET" action="{{ route('student.exam') }}">
-                        @csrf
-                        <input type="hidden" id="quizIdInput" name="quiz_id" value="{{ $quizzes->id }}">
-                        <input type="hidden" id="questionNumberInput" name="question_number" value="1">
-                        <button type="submit" class="btn btn-sm btn-info studentExamBtn">Take the quiz</button>
-                    </form>
+                <td>
+                    @foreach ($studentResults as $result)
+                        @if ($result->quiztitle_id == $quizzes->id)
+                            Score: {{ $result->score }}/{{ $quizzes->questions->count() }}<br>
+                            Status: {{ $result->availability }} <br>
+                            Date Taken: {{ $result->created_at->format('F j, Y g:ia') }}
+                        @endif
+                    @endforeach
                 </td>
+                <td>
+                  <form id="quizForm" method="GET" action="{{ route('student.exam') }}">
+                      @csrf
+                      <input type="hidden" id="quizIdInput" name="quiz_id" value="{{ $quizzes->id }}">
+                      <input type="hidden" id="questionNumberInput" name="question_number" value="1">
+                      <button type="submit" class="btn btn-sm btn-info studentExamBtn">Take the quiz</button>
+                  </form>
+              </td>
                 </tr>
               @endforeach  
             @endif
