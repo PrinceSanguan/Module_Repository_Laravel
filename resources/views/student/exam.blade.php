@@ -15,6 +15,8 @@
           </div>
           @endforeach
       </div>
+      <!-- Include the correct answer as a hidden input field -->
+      <input type="hidden" name="correct_answer_{{ $question->id }}" value="{{ $question->answer }}">
       <input type="hidden" name="quiz_id" value="{{ $question->quiztitle_id }}">
       <input type="hidden" name="question_number" value="{{ $questionNumber }}">
       <button type="submit" class="btn btn-primary">Submit</button>

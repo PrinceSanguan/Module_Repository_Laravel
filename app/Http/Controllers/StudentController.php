@@ -170,6 +170,9 @@ class StudentController extends Controller
     
         // Retrieve the user's answer for this question
         $userAnswer = $request->input("question_$questionNumber");
+
+         // Retrieve the correct answer for this question
+        $questionAnswer = $request->input("correct_answer_$questionNumber");
     
         // Retrieve or create the StudentResult
         $studentResult = StudentResult::firstOrNew([
@@ -178,7 +181,7 @@ class StudentController extends Controller
         ]);
     
         // Check if the user's answer is correct and update the score
-        if ($userAnswer == $question->answer) {
+        if ($userAnswer == $questionAnswer) {
             $studentResult->score += 1;
         } 
     
