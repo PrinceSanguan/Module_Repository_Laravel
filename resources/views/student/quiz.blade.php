@@ -21,6 +21,16 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
+      @if(session('error'))
+        <div id="error-alert" class="alert alert-danger" style="font-size: 18px; padding: 20px;">
+        {{ session('error') }}
+        </div>
+        <script>
+        setTimeout(function() {
+        document.getElementById('error-alert').style.display = 'none';
+        }, 3000);
+        </script>
+      @endif
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
         <table class="table table-hover text-nowrap">
@@ -30,8 +40,6 @@
               <th>Prepared by:</th>
               <th>Number of Question:</th>
               <th>Date Prepared:</th>
-              <th>Status:</th>
-              <th>Score:</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -43,8 +51,6 @@
                   <td>{{ $quizzes->user->name }}</td>
                   <td>{{ $quizzes->questions->count() }}</td>
                   <td>{{ $quizzes->created_at->format('F j, Y g:ia') }}</td>
-                  <td>Taken</td>
-                  <td>2/2</td>
                   <td>
                     <form id="quizForm" method="GET" action="{{ route('student.exam') }}">
                         @csrf
@@ -80,18 +86,5 @@
   </footer>
 </div>
 <!-- ./wrapper -->
-
-{{-- <script>
-  $(document).ready(function() {
-      // Add click event listener to the button with class 'studentExamBtn'
-      $('.studentExamBtn').click(function() {
-          // Retrieve the quiz ID from the data attribute
-          var quizId = $(this).data('quiz-id');
-          
-          // Redirect user to the 'student.exam' route with the quiz ID as a parameter
-          window.location.href = "{{ route('student.exam') }}?quiz_id=" + quizId;
-      });
-  });
-</script> --}}
 
 @include('student.footer')
