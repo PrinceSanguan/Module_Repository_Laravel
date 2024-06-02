@@ -49,8 +49,25 @@ class StudentController extends Controller
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
         } 
 
+        // Count the number of entries in the QuizTitle model
+        $quizTitleCount = QuizTitle::count();
+
+        // Count the number of Module
+        $moduleCount = Module::count();
+
+        // Count the number of StudentResult entries associated with the user where availability is taken
+        $studentResultCount = StudentResult::where('user_id', $user->id)
+        ->where('availability', 'taken')
+        ->count();
+
         // Pass the information to the view
-        return view('student.dashboard', ['user' => $user] );
+        return view('student.dashboard', [
+        'user' => $user,
+        'quizTitleCount' => $quizTitleCount,
+        'studentResultCount' => $studentResultCount,
+        'moduleCount' => $moduleCount
+        ]);
+
     }
 
     public function quiz() 

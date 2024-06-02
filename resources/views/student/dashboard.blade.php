@@ -24,7 +24,7 @@
         <div class="col-lg-6 col-12">
           <div class="small-box bg-pink">
             <div class="inner">
-              <h3>1/5</h3>
+              <h3>{{$studentResultCount}}/{{$quizTitleCount}}</h3>
 
               <p>Answered quizzes</p>
             </div>
@@ -41,9 +41,9 @@
         <div class="col-lg-6 col-12">
           <div class="small-box bg-blue">
             <div class="inner">
-              <h3>2/3</h3>
+              <h3>{{$moduleCount}}</h3>
 
-              <p>Read modules</p>
+              <p>Number of Modules</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>
