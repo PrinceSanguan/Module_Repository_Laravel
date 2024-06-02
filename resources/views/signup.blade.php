@@ -105,8 +105,24 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                        
+
                             <div class="form-group">
+                                <label for="school">School</label>
+                                <select class="form-control" name="school" required>
+                                    <option value="">Select School</option>
+                                    <option value="Air Force City Elementary School">Air Force City Elementary School</option>
+                                    <option value="Malabanias Integrated School">Malabanias Integrated School</option>
+                                    <option value="Amsic Integrated School">Amsic Integrated School</option>
+                                    <option value="Sta. Teresita Elementary School">Sta. Teresita Elementary School</option>
+                                    <option value="Don Pepe Henson Memorial School">Don Pepe Henson Memorial School</option>
+                                    <option value="Virgen Delos Remedios Elementary School">Virgen Delos Remedios Elementary School</option>
+                                </select>
+                                @error('school')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        
+{{--                             <div class="form-group">
                                 <label for="userType">Type of User</label>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -123,7 +139,7 @@
                                 @error('userType')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
                         
                             <input type="submit" value="Submit" class="btn text-white btn-block">
                         </form>

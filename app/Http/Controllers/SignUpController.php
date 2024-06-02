@@ -24,7 +24,6 @@ class SignUpController extends Controller
                 'regex:/^(?=.*[a-zA-Z])(?=.*\d).{6,}$/',
             ],
             'section' => 'required',
-            'userType' => 'required',
         ], [
             'password.regex' => 'The password must contain at least one letter, one number, and be at least 6 characters long.',
         ]);
@@ -35,7 +34,7 @@ class SignUpController extends Controller
             'name' => $request->input('name'),
             'password' => bcrypt($request->input('password')),
             'section' => $request->input('section'),
-            'userType' => $request->input('userType'),
+            'userType' => 'student',
         ]);
     
         if (!$user) {
