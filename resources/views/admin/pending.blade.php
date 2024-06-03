@@ -37,6 +37,7 @@
                     <th>Name</th>
                     <th>User Type</th>
                     <th>Section</th>
+                    <th>School</th>
                     <th>Date Created</th>
                     <th>Action</th>
                 </tr>
@@ -49,6 +50,7 @@
                     <td>{{ $datas->name }}</td>
                     <td>{{ $datas->userType }}</td>
                     <td>{{ $datas->section }}</td>
+                    <td>{{ $datas->school }}</td>
                     <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
 
                     <td>

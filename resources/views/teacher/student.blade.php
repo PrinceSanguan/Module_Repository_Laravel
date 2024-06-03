@@ -1,6 +1,6 @@
-@include('admin.header')
+@include('teacher.header')
 
-@include('admin.navbar')
+@include('teacher.navbar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -26,29 +26,23 @@
         <table class="table table-hover text-nowrap">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Username</th>
               <th>Name</th>
               <th>Section</th>
               <th>School</th>
               <th>Date Created</th>
-              <th>Action</th>
+              {{-- <th>Action</th> --}}
             </tr>
           </thead>
           <tbody>
             @if ($data)
               @foreach ($data as $datas)
                 <tr>
-                  <td>{{ $datas->id }}</td>
                   <td>{{ $datas->username }}</td>
                   <td>{{ $datas->name }}</td>
                   <td>{{ $datas->section }}</td>
                   <td>{{ $datas->school }}</td>
                   <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
-                  <td>
-                    {{-- <button class="btn btn-sm btn-info">View</button> --}}
-                    <button class="btn btn-sm btn-danger delete-btn" data-id="{{ $datas->id }}">Delete</button>
-                  </td>
                 </tr>
               @endforeach  
             @endif
@@ -99,4 +93,5 @@
     });
 });
 </script>
-@include('admin.footer')
+
+@include('teacher.footer')

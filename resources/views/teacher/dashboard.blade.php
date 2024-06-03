@@ -1,6 +1,6 @@
-@include('student.header')
+@include('teacher.header')
 
-@include('student.navbar')
+@include('teacher.navbar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">My profile</h1>
+            <h1 class="m-0">Teacher Dashboard</h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -41,9 +41,9 @@
       <div class="col-lg-12 col-12">
         <div class="small-box bg-pink">
           <div class="inner">
-            <h3>{{$studentResultCount}}/{{$quizTitleCount}}</h3>
+            <h3>{{-- {{$studentResultCount}}/{{$quizTitleCount}} --}}</h3>
 
-            <p>Answered quizzes</p>
+            <p>Quizzes</p>
           </div>
           <div class="icon">
             <i class="fas fa-pen"></i>
@@ -58,7 +58,7 @@
       <div class="col-lg-12 col-12">
         <div class="small-box bg-blue">
           <div class="inner">
-            <h3>{{$moduleCount}}</h3>
+            <h3>{{-- {{$moduleCount}} --}}</h3>
 
             <p>Number of Modules</p>
           </div>
@@ -89,8 +89,8 @@
       <b>Version</b> 1.1.0
     </div>
   </footer>
+
 </div>
 <!-- ./wrapper -->
 
-
-@include('student.footer')
+@include('teacher.footer')

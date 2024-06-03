@@ -34,7 +34,8 @@ class SignUpController extends Controller
             'name' => $request->input('name'),
             'password' => bcrypt($request->input('password')),
             'section' => $request->input('section'),
-            'userType' => 'student',
+            'school' => $request->input('school'),
+            'userType' => $request->input('userType'),
         ]);
     
         if (!$user) {

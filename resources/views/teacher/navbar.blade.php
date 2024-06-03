@@ -14,6 +14,12 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item d-sm-inline">
+        <a href="{{route('teacher.dashboard')}}" class="nav-link">{{ $user->name }}</a>
+      </li>
+    </ul>
   </nav>
   <!-- /.navbar -->
   
@@ -31,7 +37,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex"> 
           <div class="info">
-            <a style="cursor: default;">Hi, Admin <strong>{{ ucfirst($user->name) }}!</strong></a>
+            <a style="cursor: default;">Hi, Teacher <strong>{{ ucfirst($user->name) }}!</strong></a>
           </div>
         </div>
   
@@ -47,25 +53,16 @@
            with font-awesome or any other icon font library -->
   
            <li class="nav-item">
-            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('teacher.dashboard') }}" class="nav-link {{ Route::is('teacher.dashboard') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-
-          <li class="nav-item">
-            <a href="{{route('admin.pending')}}" class="nav-link {{ Route::is('admin.pending') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-question"></i>
-              <p>
-                Pending
-              </p>
-            </a>
-          </li>
   
           <li class="nav-item">
-            <a href="{{ route('admin.student') }}" class="nav-link {{ Route::is('admin.student') ? 'active' : '' }}">
+            <a href="{{ route('teacher.student') }}" class="nav-link {{ Route::is('teacher.student') ? 'active' : '' }}">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Students
@@ -73,17 +70,8 @@
             </a>
           </li>
   
-           <li class="nav-item">
-            <a href="{{route('admin.teacher')}}" class="nav-link {{ Route::is('admin.teacher') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-user-tie"></i>
-              <p>
-                Teachers
-              </p>
-            </a>
-          </li> 
-  
           <li class="nav-item">
-            <a href="{{route('admin.quiz')}}" class="nav-link {{ Route::is('admin.quiz') ? 'active' : '' }}">
+            <a href="{{route('teacher.quiz')}}" class="nav-link {{ Route::is('teacher.quiz') ? 'active' : '' }}">
               <i class="nav-icon fas fa-pen"></i>
               <p>
                 Quiz
@@ -92,7 +80,7 @@
           </li>
   
           <li class="nav-item">
-            <a href="{{route('admin.module')}}" class="nav-link {{ Route::is('admin.module') ? 'active' : '' }}">
+            <a href="{{route('teacher.module')}}" class="nav-link {{ Route::is('teacher.module') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Module

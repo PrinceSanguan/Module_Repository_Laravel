@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/student', [AdminController::class, 'student'])->name('admin.student');
 
+    Route::get('admin/teacher', [AdminController::class, 'teacher'])->name('admin.teacher');
+
     Route::get('admin/pending', [AdminController::class, 'pending'])->name('admin.pending');
     Route::post('admin/pending/{id}/activate', [AdminController::class, 'pendingActivate'])->name('admin.pending_activate');
     Route::post('admin/pending/{id}/delete', [AdminController::class, 'pendingDelete'])->name('admin.pending_delete');
@@ -62,6 +65,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('student/module', [StudentController::class, 'module'])->name('student.module');
 
     /******************************************** This Route is For Student *****************************/
+
+    /******************************************** This Route is For Teacher *****************************/
+    Route::get('teacher/dashboard', [TeacherController::class, 'index'])->name('teacher.dashboard');
+
+    Route::get('teacher/student', [TeacherController::class, 'student'])->name('teacher.student');
+
+    Route::get('teacher/quiz', [TeacherController::class, 'quiz'])->name('teacher.quiz');
+    Route::post('teacher/quiz', [TeacherController::class, 'addQuiz'])->name('teacher.addQuiz');
+    Route::post('teacher/quiz/add-question', [TeacherController::class, 'addQuestion'])->name('teacher.addQuestion');
+    Route::get('teacher/quiz/{quizTitleId}', [TeacherController::class, 'viewQuestions'])->name('teacher.viewQuestion');
+    Route::get('teacher/delete-quiz/{quizTitleId}', [TeacherController::class, 'deleteQuiz']);
+
+    Route::get('teacher/module', [TeacherController::class, 'module'])->name('teacher.module');
+    Route::post('teacher/module', [TeacherController::class, 'addModule'])->name('teacher.addModule');
+    Route::post('teacher/module/add-image', [TeacherController::class, 'addImage'])->name('teacher.addImage');
+    Route::get('teacher/module/{moduleId}', [TeacherController::class, 'viewModules'])->name('teacher.viewModule');
+    Route::get('teacher/delete-module/{moduleId}', [TeacherController::class, 'deleteModule']);
+    /******************************************** This Route is For Teacher *****************************/
 
     /******************************************** This Route is For Logout *****************************/
     Route::get('/logout', function (Request $request) {

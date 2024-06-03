@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('password');
             $table->string('section');
+            $table->string('school')->nullable();
             $table->enum('userType', ['admin', 'student', 'teacher'])->default('admin');
             $table->enum('status', ['activate', 'deactivate'])->default('deactivate');
             $table->timestamps();
@@ -29,6 +30,7 @@ return new class extends Migration
             'name' => 'Ina V. Nucup',
             'password' => '$2y$12$8qGbpTMe/NFXUMNZbMB5Gu0SFlp/hOcbGb6yyhSdn6MxedBmK7Eta',
             'section' => 'Gumamela',
+            'school' => '',
             'userType' => 'admin',
             'status' => 'activate',
             'created_at' => now(),

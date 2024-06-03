@@ -94,6 +94,28 @@ class AdminController extends Controller
         return view('admin.student', ['user' => $user, 'data' => $data]);
     }
 
+    public function teacher() 
+    {
+        $user = $this->getUserInfo();
+
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
+        }
+
+        // Check if the user type is 'admin'
+        if ($user->userType !== 'admin') {
+            // Redirect to the same page with an error message
+            return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
+        }
+
+        // Fetch all accounts where userType is 'student' and status is 'activate'
+        $data = User::where('userType', 'teacher')->where('status', 'activate')->get();
+
+        // Pass the information to the view
+        return view('admin.teacher', ['user' => $user, 'data' => $data]);
+    }
+
     public function pending() 
     {
         $user = $this->getUserInfo();
@@ -109,8 +131,8 @@ class AdminController extends Controller
             return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
         }
 
-        // Fetch all accounts where userType is 'student' and status is 'deactivate'
-        $data = User::where('userType', 'student')->where('status', 'deactivate')->get();
+        // Fetch all accounts where status is 'deactivate'
+        $data = User::where('status', 'deactivate')->get();
 
         // Pass the information to the view
         return view('admin.pending', ['user' => $user, 'data' => $data]);
