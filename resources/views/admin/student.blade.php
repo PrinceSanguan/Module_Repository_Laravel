@@ -184,7 +184,7 @@
               },
               error: function(xhr) {
                   console.log('Error:', xhr.responseText);
-                  modal.find('#modalTableBody').html('<tr><td colspan="5">An error occurred while fetching data.</td></tr>');
+                  modal.find('#modalTableBody').html('<tr><td colspan="5">The student didn\'t take any quiz yet.</td></tr>');
               }
           });
       });
