@@ -16,7 +16,6 @@ class Question extends Model
         'choicesB',
         'choicesC',
         'choicesD',
-        'choicesE',
         'answer',
     ];
 

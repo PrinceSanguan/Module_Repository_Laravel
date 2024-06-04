@@ -7,7 +7,7 @@
       <div class="card-body">
         <h3 class="card-text">{{ $question->question }}</h3>
           <!-- Display choices for the question -->
-          @foreach(['A', 'B', 'C', 'D', 'E'] as $choice)
+          @foreach(['A', 'B', 'C', 'D'] as $choice)
           <div class="col-md-6">
               <label>
                   <input type="radio" name="question_{{ $question->id }}" value="{{ $question->{'choices'.$choice} }}" required> {{ $question->{'choices'.$choice} }}

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('choicesB');
             $table->string('choicesC');
             $table->string('choicesD');
-            $table->string('choicesE');
             $table->string('answer');
             $table->timestamps();
 

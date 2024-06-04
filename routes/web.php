@@ -33,7 +33,9 @@ Route::middleware(['auth'])->group(function () {
 
     /******************************************** This Route is For Admin *****************************/
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
     Route::get('admin/student', [AdminController::class, 'student'])->name('admin.student');
+    Route::get('admin/student/{id}', [AdminController::class, 'viewResult'])->name('admin.viewResult');
 
     Route::get('admin/teacher', [AdminController::class, 'teacher'])->name('admin.teacher');
 
@@ -52,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('admin/quiz', [AdminController::class, 'addQuiz'])->name('admin.addQuiz');
     Route::post('admin/quiz/add-question', [AdminController::class, 'addQuestion'])->name('admin.addQuestion');
     Route::get('admin/delete-quiz/{quizTitleId}', [AdminController::class, 'deleteQuiz']);
+
+
     /******************************************** This Route is For Admin *****************************/
 
     /******************************************** This Route is For Student *****************************/
@@ -77,11 +81,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('teacher/quiz/{quizTitleId}', [TeacherController::class, 'viewQuestions'])->name('teacher.viewQuestion');
     Route::get('teacher/delete-quiz/{quizTitleId}', [TeacherController::class, 'deleteQuiz']);
 
-    Route::get('teacher/module', [TeacherController::class, 'module'])->name('teacher.module');
+    /* Route::get('teacher/module', [TeacherController::class, 'module'])->name('teacher.module');
     Route::post('teacher/module', [TeacherController::class, 'addModule'])->name('teacher.addModule');
     Route::post('teacher/module/add-image', [TeacherController::class, 'addImage'])->name('teacher.addImage');
     Route::get('teacher/module/{moduleId}', [TeacherController::class, 'viewModules'])->name('teacher.viewModule');
-    Route::get('teacher/delete-module/{moduleId}', [TeacherController::class, 'deleteModule']);
+    Route::get('teacher/delete-module/{moduleId}', [TeacherController::class, 'deleteModule']); */
     /******************************************** This Route is For Teacher *****************************/
 
     /******************************************** This Route is For Logout *****************************/

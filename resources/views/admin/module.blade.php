@@ -180,6 +180,9 @@
   });
 </script>
 
+<!-- Include PDF.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+
 <script>
   $(document).ready(function() {
       var totalModules = 0;
@@ -202,9 +205,33 @@
 
                   // Loop through the fetched images and populate the carousel
                   $.each(response.modules, function(index, module) {
-                      var item = $('<div class="carousel-item">').append(
-                          $('<img class="d-block w-100" alt="Module Image">').attr('src', "{{ asset('upload-image/') }}/" + module.image)
-                      );
+                      var extension = module.image.split('.').pop().toLowerCase();
+                      var item = $('<div class="carousel-item">');
+
+                      if (extension === 'jpg' || extension === 'png') {
+                          item.append($('<img class="d-block w-100" alt="Module Image">').attr('src', "{{ asset('upload-image/') }}/" + module.image));
+                      } else if (extension === 'pdf') {
+                          var pdfUrl = "{{ asset('upload-image/') }}/" + module.image;
+                          var canvas = $('<canvas class="d-block w-100">')[0];
+                          item.append(canvas);
+
+                          // Use PDF.js to render the PDF to the canvas
+                          var loadingTask = pdfjsLib.getDocument(pdfUrl);
+                          loadingTask.promise.then(function(pdf) {
+                              pdf.getPage(1).then(function(page) {
+                                  var viewport = page.getViewport({ scale: 1.5 });
+                                  canvas.height = viewport.height;
+                                  canvas.width = viewport.width;
+                                  var renderContext = {
+                                      canvasContext: canvas.getContext('2d'),
+                                      viewport: viewport
+                                  };
+                                  page.render(renderContext);
+                              });
+                          });
+                      } else {
+                          item.append($('<div class="d-block w-100 text-center">No image available</div>'));
+                      }
 
                       // Add active class to the first item
                       if (index === 0) {
@@ -264,6 +291,7 @@
       });
   });
 </script>
+
 
 <script>
   $(document).ready(function() {

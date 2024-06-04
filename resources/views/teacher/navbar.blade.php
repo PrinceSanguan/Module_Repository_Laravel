@@ -79,14 +79,14 @@
             </a>
           </li>
   
-          <li class="nav-item">
+{{--           <li class="nav-item">
             <a href="{{route('teacher.module')}}" class="nav-link {{ Route::is('teacher.module') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Module
               </p>
             </a>
-          </li>
+          </li> --}}
   
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link">

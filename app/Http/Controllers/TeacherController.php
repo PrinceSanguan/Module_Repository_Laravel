@@ -96,6 +96,11 @@ class TeacherController extends Controller
 
         // Retrieve quizzes published by Teacher along with the count of questions
         $data = QuizTitle::where('user_id', $user->id)->get();
+
+        // Loop through each quiz title to count its associated questions
+        foreach ($data as $datas) {
+            $datas->questions_count = Question::where('quiztitle_id', $datas->id)->count();
+        }
     
         // Pass the information to the view along with $showQuestionModal
         return view('teacher.quiz', ['user' => $user, 'data' => $data]);
@@ -131,7 +136,6 @@ class TeacherController extends Controller
         $addQuestion->choicesB = $request->input('choicesB');
         $addQuestion->choicesC = $request->input('choicesC');
         $addQuestion->choicesD = $request->input('choicesD');
-        $addQuestion->choicesE = $request->input('choicesE');
     
             // Determine the answer based on the user's choice
         switch ($request->input('answer')) {
@@ -146,9 +150,6 @@ class TeacherController extends Controller
                 break;
             case 'D':
                 $addQuestion->answer = $request->input('choicesD');
-                break;
-            case 'E':
-                $addQuestion->answer = $request->input('choicesE');
                 break;
             default:
                 // Handle the case where no answer is provided

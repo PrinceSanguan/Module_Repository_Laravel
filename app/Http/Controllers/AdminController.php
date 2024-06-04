@@ -9,6 +9,7 @@ use App\Models\QuizTitle;
 use App\Models\Question;
 use App\Models\Module;
 use App\Models\ModuleContent;
+use App\Models\StudentResult;
 
 class AdminController extends Controller
 {
@@ -346,7 +347,6 @@ public function deleteModule($moduleId)
         $addQuestion->choicesB = $request->input('choicesB');
         $addQuestion->choicesC = $request->input('choicesC');
         $addQuestion->choicesD = $request->input('choicesD');
-        $addQuestion->choicesE = $request->input('choicesE');
     
         // Determine the answer based on the user's choice
     switch ($request->input('answer')) {
@@ -361,9 +361,6 @@ public function deleteModule($moduleId)
             break;
         case 'D':
             $addQuestion->answer = $request->input('choicesD');
-            break;
-        case 'E':
-            $addQuestion->answer = $request->input('choicesE');
             break;
         default:
             // Handle the case where no answer is provided
@@ -411,4 +408,39 @@ public function deleteModule($moduleId)
             return redirect()->route('register')->with('error', 'Please upload at least one file.');
         }
     }
-}
+
+    public function viewResult($id)
+    {
+        $user = $this->getUserInfo();
+    
+        // Check if the user is found
+        if (!$user) {
+            return response()->json(['error' => 'User not found.'], 404);
+        }
+    
+        // Check if the user type is 'admin' or 'teacher'
+        if ($user->userType !== 'admin' && $user->userType !== 'teacher') {
+            return response()->json(['error' => 'Access denied.'], 403);
+        }
+    
+        // Retrieve the student's exam results by the student ID
+        $studentResults = StudentResult::where('user_id', $id)->get();
+    
+        if ($studentResults->isEmpty()) {
+            return response()->json(['error' => 'No results found for this student.'], 404);
+        }
+    
+        // Retrieve the quizzes with their associated users and questions
+        $quiz = QuizTitle::with('user', 'questions')->get();
+    
+        // Retrieve the student's name
+        $studentName = User::find($id)->name;
+
+        return response()->json([
+            'studentResults' => $studentResults,
+            'quiz' => $quiz,
+            'studentName' => $studentName, // Add student's name to the response
+            'user' => $user
+        ]);
+    }
+}  

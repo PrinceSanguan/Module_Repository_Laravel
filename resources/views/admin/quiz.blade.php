@@ -135,10 +135,6 @@
                         <label>Choices D</label>
                         <input type="text" class="form-control" id="choicesD" name="choicesD" required>
                     </div>
-                    <div class="form-group">
-                        <label>Choices E</label>
-                        <input type="text" class="form-control" id="choicesE" name="choicesE" required>
-                    </div>
 
                     <div class="form-group">
                       <label>Answer</label>
@@ -161,11 +157,6 @@
                           <div class="col-md-6">
                               <label>
                                   <input type="radio" name="answer" value="D" required> Choices D
-                              </label>
-                          </div>
-                          <div class="col-md-6">
-                              <label>
-                                  <input type="radio" name="answer" value="E" required> Choices E
                               </label>
                           </div>
                       </div>
@@ -203,7 +194,6 @@
                             <th>Choices B</th>
                             <th>Choices C</th>
                             <th>Choices D</th>
-                            <th>Choices E</th>
                             <th>Answer</th>
                           </tr>
                         </thead>
@@ -277,7 +267,6 @@ $(document).ready(function() {
                                   '<td>' + question.choicesB + '</td>' +
                                   '<td>' + question.choicesC + '</td>' +
                                   '<td>' + question.choicesD + '</td>' +
-                                  '<td>' + question.choicesE + '</td>' +
                                   '<td>' + question.answer + '</td>' +
                                 '</tr>';
                       $('#viewQuestionModal tbody').append(row);

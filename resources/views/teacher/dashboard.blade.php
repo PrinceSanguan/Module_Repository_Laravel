@@ -54,23 +54,6 @@
         </div>
       </div>
 
-      <!-- Number of Module -->
-      <div class="col-lg-12 col-12">
-        <div class="small-box bg-blue">
-          <div class="inner">
-            <h3>{{-- {{$moduleCount}} --}}</h3>
-
-            <p>Number of Modules</p>
-          </div>
-          <div class="icon">
-            <i class="fas fa-book"></i>
-          </div>
-          <a href="#" class="small-box-footer">
-            <i class="fas fa-arrow-circle-right"></i>
-          </a>
-        </div>
-      </div>
-
     </div>
     <!-- /.card -->
   </div>

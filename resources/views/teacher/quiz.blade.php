@@ -28,9 +28,8 @@
           <table class="table table-hover text-nowrap">
             <thead>
                 <tr>
-                    <th>Number</th>
-                    <th>Published By</th>
                     <th>Title</th>
+                    <th>Published By</th>
                     <th>Number of Question</th>
                     <th>Date</th>
                     <th>Action</th>
@@ -41,9 +40,8 @@
                 @php $count = 1; @endphp <!-- Initialize count variable -->
                 @foreach ($data as $datas)
                 <tr>
-                    <td>{{ $count++ }}</td> <!-- Increment count for each iteration -->
-                    <td>{{ $datas->user->name }}</td>
                     <td>{{ $datas->title }}</td>
+                    <td>{{ $datas->user->name }}</td>
                     <td>{{ $datas->questions_count }}</td>
                     <td>{{ $datas->created_at->format('F j, Y g:ia') }}</td>
                     <td>
@@ -135,10 +133,6 @@
                         <label>Choices D</label>
                         <input type="text" class="form-control" id="choicesD" name="choicesD" required>
                     </div>
-                    <div class="form-group">
-                        <label>Choices E</label>
-                        <input type="text" class="form-control" id="choicesE" name="choicesE" required>
-                    </div>
 
                     <div class="form-group">
                       <label>Answer</label>
@@ -161,11 +155,6 @@
                           <div class="col-md-6">
                               <label>
                                   <input type="radio" name="answer" value="D" required> Choices D
-                              </label>
-                          </div>
-                          <div class="col-md-6">
-                              <label>
-                                  <input type="radio" name="answer" value="E" required> Choices E
                               </label>
                           </div>
                       </div>
@@ -203,7 +192,6 @@
                             <th>Choices B</th>
                             <th>Choices C</th>
                             <th>Choices D</th>
-                            <th>Choices E</th>
                             <th>Answer</th>
                           </tr>
                         </thead>
@@ -277,7 +265,6 @@ $(document).ready(function() {
                                   '<td>' + question.choicesB + '</td>' +
                                   '<td>' + question.choicesC + '</td>' +
                                   '<td>' + question.choicesD + '</td>' +
-                                  '<td>' + question.choicesE + '</td>' +
                                   '<td>' + question.answer + '</td>' +
                                 '</tr>';
                       $('#viewQuestionModal tbody').append(row);
