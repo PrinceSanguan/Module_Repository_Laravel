@@ -209,7 +209,7 @@ class TeacherController extends Controller
         }
     
         // fetch all module
-        $modules = Module::where('user_id', $user->id)->get();
+        $modules = Module::all();
 
         foreach ($modules as $module) {
             $module->modulecontent_count = ModuleContent::where('module_id', $module->id)->count();

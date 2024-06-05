@@ -81,11 +81,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('teacher/quiz/{quizTitleId}', [TeacherController::class, 'viewQuestions'])->name('teacher.viewQuestion');
     Route::get('teacher/delete-quiz/{quizTitleId}', [TeacherController::class, 'deleteQuiz']);
 
-    /* Route::get('teacher/module', [TeacherController::class, 'module'])->name('teacher.module');
-    Route::post('teacher/module', [TeacherController::class, 'addModule'])->name('teacher.addModule');
+    Route::get('teacher/module', [TeacherController::class, 'module'])->name('teacher.module');
+    /* Route::post('teacher/module', [TeacherController::class, 'addModule'])->name('teacher.addModule'); */
     Route::post('teacher/module/add-image', [TeacherController::class, 'addImage'])->name('teacher.addImage');
     Route::get('teacher/module/{moduleId}', [TeacherController::class, 'viewModules'])->name('teacher.viewModule');
-    Route::get('teacher/delete-module/{moduleId}', [TeacherController::class, 'deleteModule']); */
+    /* Route::get('teacher/delete-module/{moduleId}', [TeacherController::class, 'deleteModule']); */
     /******************************************** This Route is For Teacher *****************************/
 
     /******************************************** This Route is For Logout *****************************/

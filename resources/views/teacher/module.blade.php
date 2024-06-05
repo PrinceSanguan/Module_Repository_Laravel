@@ -12,7 +12,7 @@
           <h1 class="m-0">Module</h1>
         </div><!-- /.col -->
         <div class="col-sm-6 text-right"> <!-- Moved the button container to the right -->
-          <button class="btn btn-sm btn-info" id="addModuleBtn">Add Module</button>
+          {{-- <button class="btn btn-sm btn-info" id="addModuleBtn">Add Module</button> --}}
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -47,9 +47,9 @@
                     <td>{{ $module->modulecontent_count }}</td>
                     <td>{{ $module->created_at->format('F j, Y g:ia') }}</td>
                     <td>
-                        <button class="btn btn-sm btn-info uploadModuleBtn" data-moduleid="{{ $module->id }}">Upload</button>
+                        {{-- <button class="btn btn-sm btn-info uploadModuleBtn" data-moduleid="{{ $module->id }}">Upload</button> --}}
                         <button class="btn btn-sm btn-warning viewModuleBtn" data-moduleid="{{ $module->id }}">View</button>
-                        <button class="btn btn-sm btn-danger deleteModuleBtn" data-moduleid="{{ $module->id }}">Delete</button>
+                        {{-- <button class="btn btn-sm btn-danger deleteModuleBtn" data-moduleid="{{ $module->id }}">Delete</button> --}}
                     </td>
                 </tr>
                 @endforeach
@@ -67,7 +67,7 @@
 <!-- /.content-wrapper -->
 
 <!-- Add Module Modal -->
-<div class="modal fade" id="addModuleModal" tabindex="-1" role="dialog">
+{{-- <div class="modal fade" id="addModuleModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -93,7 +93,7 @@
           <!-- Form inside the modal -->
       </div>
   </div>
-</div>
+</div> --}}
 <!-- Add Module Modal -->
 
 <!-- View Module Modal -->
