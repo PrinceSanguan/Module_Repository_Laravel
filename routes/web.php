@@ -55,6 +55,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('admin/quiz/add-question', [AdminController::class, 'addQuestion'])->name('admin.addQuestion');
     Route::get('admin/delete-quiz/{quizTitleId}', [AdminController::class, 'deleteQuiz']);
 
+    Route::get('admin/change_username', [AdminController::class, 'changeUsername'])->name('admin.changeUsername');
+    Route::post('admin/change_username', [AdminController::class, 'changeUsernameRequest'])->name('change.usernamerequest');
+
+    Route::get('admin/change_password', [AdminController::class, 'changePassword'])->name('admin.changePassword');
+    Route::post('admin/change_password', [AdminController::class, 'changePasswordRequest'])->name('change.passwordrequest');
+
 
     /******************************************** This Route is For Admin *****************************/
 

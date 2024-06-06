@@ -14,6 +14,12 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item d-sm-inline">
+        <a href="{{route('admin.dashboard')}}" class="nav-link">{{ $user->name }}</a>
+      </li>
+    </ul>
   </nav>
   <!-- /.navbar -->
   
@@ -96,6 +102,24 @@
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Module
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('admin.changeUsername')}}" class="nav-link {{ Route::is('admin.changeUsername') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-user-edit"></i>
+              <p>
+                Change Username
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('admin.changePassword')}}" class="nav-link {{ Route::is('admin.changePassword') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-key"></i>
+              <p>
+                Change Password
               </p>
             </a>
           </li>

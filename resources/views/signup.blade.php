@@ -131,6 +131,8 @@
                                       <option value="Salapungan Elementary School">Salapungan Elementary School</option>
                                       <option value="Sta. Maria Elementary School">Sta. Maria Elementary School</option>
                                       <option value="Virgin Delos Remedios Elementary School">Virgin Delos Remedios Elementary School</option>
+                                      <option value="Cuayan Elementary School">Cuayan Elementary School</option>
+                                      <option value="Pampang Elementary School">Pampang Elementary School</option>
                                   </select>
                                   @error('school')
                                       <div class="text-danger">{{ $message }}</div>

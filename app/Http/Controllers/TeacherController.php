@@ -95,7 +95,7 @@ class TeacherController extends Controller
         }
 
         // Retrieve quizzes published by Teacher along with the count of questions
-        $data = QuizTitle::where('user_id', $user->id)->get();
+        $data = QuizTitle::all();
 
         // Loop through each quiz title to count its associated questions
         foreach ($data as $datas) {

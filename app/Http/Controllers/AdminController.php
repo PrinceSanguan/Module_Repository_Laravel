@@ -10,6 +10,8 @@ use App\Models\Question;
 use App\Models\Module;
 use App\Models\ModuleContent;
 use App\Models\StudentResult;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AdminController extends Controller
 {
@@ -277,8 +279,9 @@ public function deleteModule($moduleId)
 
     public function module()
     {
-        // Your existing logic to retrieve user data and quizzes
+
         $user = $this->getUserInfo();
+
         // Check if the user is found
         if (!$user) {
             return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
@@ -442,5 +445,84 @@ public function deleteModule($moduleId)
             'studentName' => $studentName, // Add student's name to the response
             'user' => $user
         ]);
+    }
+
+    public function changePassword() {
+        
+        $user = $this->getUserInfo();
+        
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
+        }
+    
+        // Check if the user type is 'admin'
+        if ($user->userType !== 'admin') {
+            // Redirect to the same page with an error message
+            return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
+        }
+
+        // Pass the information to the view
+        return view('admin.change_password', ['user' => $user]);
+    }
+
+    public function changePasswordRequest(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => [
+                'required',
+                'regex:/^(?=.*[a-zA-Z])(?=.*\d).{6,}$/',
+            ],
+            'confirm_password' => 'required|same:new_password',
+        ]);
+    
+        $user = auth()->user();
+    
+        if (!Hash::check($request->current_password, $user->password)) {
+            throw ValidationException::withMessages(['current_password' => 'Incorrect current password']);
+        }
+    
+        $user->update(['password' => Hash::make($request->new_password)]);
+    
+        return redirect()->route('admin.changePassword')->with('success', 'Password changed successfully');
+    }
+
+    public function changeUsername() {
+        
+        $user = $this->getUserInfo();
+        
+        // Check if the user is found
+        if (!$user) {
+            return redirect()->route('welcome')->withErrors(['error' => 'User not found.']);
+        }
+    
+        // Check if the user type is 'admin'
+        if ($user->userType !== 'admin') {
+            // Redirect to the same page with an error message
+            return redirect()->route('welcome')->withErrors(['error' => 'Access denied.']);
+        }
+
+        // Pass the information to the view
+        return view('admin.change_username', ['user' => $user]);
+    }
+
+    public function changeUsernameRequest(Request $request)
+    {
+        $request->validate([
+            'current_username' => 'required',
+            'new_username' => 'required',
+            'confirm_username' => 'required|same:new_username',
+        ]);
+
+        $user = auth()->user();
+
+        if ($request->current_username !== $user->username) {
+            throw ValidationException::withMessages(['current_username' => 'Incorrect current username']);
+        }
+
+        $user->update(['username' => $request->new_username]);
+
+        return redirect()->route('admin.changeUsername')->with('success', 'Username changed successfully');
     }
 }  

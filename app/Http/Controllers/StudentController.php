@@ -166,20 +166,17 @@ class StudentController extends Controller
     }
     
 
-    public function checkAnswer(Request $request) 
+    public function checkAnswer(Request $request)
     {
         // Retrieve the user information
-        $user = $this->getUserInfo();
+        $user = auth()->user();
     
         // Retrieve the quiz ID and current question number from the request
         $quizId = $request->input('quiz_id');
         $questionNumber = $request->input('question_number');
     
         // Retrieve the question based on the quiz ID and question number
-        $question = Question::where('quiztitle_id', $quizId)
-                            ->orderBy('id', 'asc')
-                            ->skip($questionNumber - 1)
-                            ->first();
+        $question = Question::find($request->input('question_id'));
     
         // Check if the question exists
         if (!$question) {
@@ -188,10 +185,10 @@ class StudentController extends Controller
         }
     
         // Retrieve the user's answer for this question
-        $userAnswer = $request->input("question_$questionNumber");
-
-         // Retrieve the correct answer for this question
-        $questionAnswer = $request->input("correct_answer_$questionNumber");
+        $userAnswer = $request->input('answer');
+    
+        // Retrieve the correct answer for this question
+        $correctAnswer = $request->input('correct_answer');
     
         // Retrieve or create the StudentResult
         $studentResult = StudentResult::firstOrNew([
@@ -199,10 +196,15 @@ class StudentController extends Controller
             'quiztitle_id' => $quizId
         ]);
     
+        // Initialize score if it's a new record
+        if (!$studentResult->exists) {
+            $studentResult->score = 0;
+        }
+    
         // Check if the user's answer is correct and update the score
-        if ($userAnswer == $questionAnswer) {
+        if ($userAnswer == $correctAnswer) {
             $studentResult->score += 1;
-        } 
+        }
     
         // Save the updated score
         $studentResult->save();
@@ -223,6 +225,7 @@ class StudentController extends Controller
             return redirect()->route('student.quiz')->with(['success' => 'You have finished the exam.']);
         }
     }
+    
 
     public function module() 
     {
