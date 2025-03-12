@@ -27,7 +27,7 @@ return new class extends Migration
         // Insert default data
         DB::table('users')->insert([
             'username' => 'admin',
-            'name' => 'Ina V. Nucup',
+            'name' => 'Teacher Ganda',
             'password' => '$2y$12$8qGbpTMe/NFXUMNZbMB5Gu0SFlp/hOcbGb6yyhSdn6MxedBmK7Eta',
             'section' => 'Gumamela',
             'school' => '',
